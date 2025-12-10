@@ -1,0 +1,1321 @@
+'use strict'
+
+
+
+import {
+	lihat as lih,
+} from 'utilku.js'
+
+let valtype = val=>{
+    if (val === null) {
+        return 'null'; // Special case: typeof null is "object", so handle it explicitly.
+    }
+    if (Array.isArray(val)) {
+        return 'array'; // Arrays are technically objects, but we want to distinguish them.
+    }
+    const type = typeof val;
+    if (type === 'object') {
+        return 'object'; // Handle plain objects.
+    }
+    return type; // Return the type for primitives like 'number', 'string', 'boolean', etc.
+}
+
+class Deferred {
+	constructor() {
+		this.promise = new Promise(resolve => {
+			this.run = resolve;
+		});
+	}
+
+	// Make the instance awaitable: await d	=== await d.promise
+	then(...args) { return this.promise.then(...args); }
+	catch(...args) { return this.promise.catch(...args); }
+	finally(...args) { return this.promise.finally(...args); }
+}
+
+const taskQueue = []; //wasm asyncs
+
+let enta = async (fn, ...args)=>{ //enqueue task
+	let defe = new Deferred()
+	taskQueue.push([fn,args,defe,]);
+	return defe
+}
+
+let runWAsmQueue = async()=>{
+	while (taskQueue.length) {
+		const [fn,args,defe,] = taskQueue.shift();
+		defe.run(await fn(...args)); // ensures order
+	}
+}
+
+let submitarr = []
+
+
+
+let wasm_cce = async ( //createCommandEncoder
+	encoreso,
+)=>{
+	let ce = await reso.get(encoreso)
+	ce = dv.createCommandEncoder(ce.descriptor)
+	//lih(ce)
+	return editenco = ce
+}
+
+
+let editenco = 'kkkkosong'
+
+
+
+let wasm_brp = async ( //beginRenderPass
+	strrpreso,
+)=>{
+	let rpreso = await reso.get(strrpreso)
+	let descr = rpreso.descriptor
+	
+	for(let ca of descr.colorAttachments){
+		if(ca.view.label === cvd.label){
+			ca.view = cx3d.getCurrentTexture().createView(cvd) //context
+		}
+	}
+	
+	let rp = editenco.beginRenderPass(descr)
+	//lih(rp)
+	return editrp = rp
+}
+
+
+let wasm_cttt = async ( //finish
+	src,
+	dst,
+	size,
+)=>{
+	await 99999
+	
+	src = tex.has(src) ?tex.get(src)() :(await reso.get(src))
+	dst = tex.has(dst) ?tex.get(dst)() :(await reso.get(dst))
+	if(
+		src.width !== dst.width ||
+		src.height !== dst.height
+	) throw Error('size must match')
+	
+	editenco.copyTextureToTexture(
+		{texture:src},
+		{texture:dst},
+		src,
+	)
+}
+
+
+let wasm_finish = async ( //finish
+)=>{
+	await 99999
+	submitarr.push(editenco.finish({label:editenco.label+' --> finishhhhhh'}))
+	editenco = 'kkkkosong1'
+}
+
+
+
+let editrp = 'kosonggg g gg'
+
+
+
+let wasm_sp = async ( //setPipeline
+	strpipereso
+)=>{
+	let pipe = await reso.get(strpipereso)
+	editrp.setPipeline(pipe)
+}
+
+
+let wasm_svb = async ( //setVertexBuffer
+	slot,
+	strbufreso,
+	offset,
+	size,
+)=>{
+	let buf = await reso.get(strbufreso)
+	if(size < 0){
+		editrp.setVertexBuffer(slot,buf,offset,)
+	}else{
+		editrp.setVertexBuffer(slot,buf,offset,size,)
+	}
+}
+
+
+let wasm_sib = async ( //setIndexBuffer
+	strbufreso,
+	indexFormat,
+	offset,
+	size,
+)=>{
+	let buf = await reso.get(strbufreso)
+	if(size < 0){
+		editrp.setIndexBuffer(buf,indexFormat,offset,)
+	}else{
+		editrp.setIndexBuffer(buf,indexFormat,offset,size,)
+	}
+}
+
+
+let wasm_sbg = async ( //setBindGroup
+	index,
+	strbgreso,
+)=>{
+	let bg = await reso.get(strbgreso)
+	editrp.setBindGroup(index,bg,)
+}
+
+
+let wasm_dii = async ( //drawIndexedIndirect
+	strbufreso,
+	offset,
+)=>{
+	let buf = await reso.get(strbufreso)
+	editrp.drawIndexedIndirect(buf,offset,)
+}
+
+
+let wasm_di = async ( //drawIndirect
+	strbufreso,
+	offset,
+)=>{
+	let buf = await reso.get(strbufreso)
+	editrp.drawIndirect(buf,offset,)
+}
+
+
+let wasm_draw = async ( //draw
+	vertexCount,
+	instanceCount,
+	firstVertex,
+	firstInstance,
+)=>{
+	//await 0 //nilai sembarang
+	editrp.draw(
+		vertexCount,
+		instanceCount,
+		firstVertex,
+		firstInstance,
+	)
+}
+
+
+let wasm_end = async ( //end
+)=>{
+	//await 0 //nilai sembarang
+	editrp.end()
+	editrp = 'bekas '+editrp.label
+}
+
+
+/*========
+let wasm_ = async ( //
+)=>{
+	let = await reso.get()
+	editrp.()
+}
+--------*/
+
+
+//audio sekali play
+let wasm_auplay = async straucon=>{
+	let aucon = await reso.get(straucon)
+	let out = []
+	for(let con of aucon){
+		let bufsrc = con.buf //con.src
+		let when = +con.start
+		let whenglo = when +aucx.currentTime
+		let vol = +con.volume
+		let buftrimstart = +con.buftrimstart
+		let buftrimend = con.buftrimend
+			buftrimend = (buftrimend === 'src') ?bufsrc.duration :+buftrimend
+		let dur = con.bufduration
+			dur = (dur === 'trimmed') ?(buftrimend-buftrimstart) :dur //buffer time
+			dur = (dur === 'endless') ?'endless' :+dur //buffer time
+		let bufscale = +con.bufscale
+		
+		let source = aucx.createBufferSource()
+		out.push(source)
+		source.buffer = bufsrc
+		source.loop = true
+		source.playbackRate.value = 1/bufscale;
+		const gainNode = aucx.createGain();		gainNode.gain.value = vol
+
+		source.connect(gainNode).connect(aucx.destination)
+		let curtime = aucx.currentTime
+		let whencx = curtime +when
+		
+		source.loopStart = buftrimstart
+		source.loopEnd = buftrimend
+		let durcx = dur
+		
+		let offsetlok = buftrimstart
+		
+		source.start(whencx,offsetlok,)
+		if(dur !== 'endless'){
+			durcx *= bufscale
+			source.stop(whencx+durcx)
+		}
+	}
+	return out
+}
+
+let wasm_austop = async aucon=>{
+	lih(aucon)
+	for(let con of await aucon){
+		con.stop()
+	}
+}
+
+//backsound
+let wasm_saab = async strreso=>{ //set _aucon audio buffer
+	suara.setAudioData(await reso.get(strreso))
+}
+
+let wasm_wb = async (
+	buffer, //str
+	bufferOffset, //number byte
+	data, //str
+	dataOffset, //number byte
+	size, //number byte
+)=>{
+	buffer = await reso.get(buffer)
+	data = (await reso.get(data)).buffer
+
+	
+	dv.queue.writeBuffer(
+		buffer,
+		bufferOffset,
+		data,
+		dataOffset,
+		size,
+	)
+}
+
+let canv3d = null
+let cx3d = null
+
+let pl4_4 = null
+
+let presentationFormat = navigator.gpu.getPreferredCanvasFormat()
+
+let aucx = new AudioContext()
+let suara = null
+//export let getsuara = ()=>suara
+//set_getsuara(getsuara)
+
+let reso = new Map()
+let encoarr = []
+//let aubuflist = []
+//let auconlist = [] //duration	src	loop	offset	volume	when	myspeed
+//let cont = new Map() //[]
+let tunggureso = new Deferred()
+
+
+
+
+
+
+/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+sampe sini:
+1. hapus cload()
+2. hapus import dari ui
+
+
+
+
+=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\*/
+
+
+
+
+
+
+let resosrc = null
+let loadreslinks = async (reslinkslink)=>{
+	//+++++++++++++++ resource +++++++++++++++
+	
+	//let reslinkslink = new URLSearchParams(location.search).get('reslinks')
+	reslinkslink = new URL(reslinkslink,location.href,)
+	resosrc = fetch(reslinkslink)
+	.then(r=>r.text())
+	
+	//fetch links
+	.then(str=>Promise.all(
+		str
+		.split(strnewline)
+		.map(aa=>{
+			let urlini = new URL(aa,reslinkslink,)
+			return fetch(urlini)
+			.then(r=>r.json())
+			.then(out=>({
+				out,
+				parenturl:urlini,
+			}))
+		})
+	))
+	.then(arr=>{
+		for(let {out,parenturl,} of arr){ for(let k in out){
+			let o = out[k]
+			o.parenturl = parenturl
+		}}
+		return Object.assign({},...arr.map(aa=>aa.out),)
+	})
+}
+
+
+
+
+
+
+let wasmsrc = null
+let loadwasmlinks = async (wasmlinkslink)=>{
+	//+++++++++++++++ wasm +++++++++++++++
+	
+	//let wasmlinkslink = new URLSearchParams(location.search).get('wasmlinks')
+	wasmlinkslink = new URL(wasmlinkslink,location.href,)
+	wasmsrc = fetch(wasmlinkslink)
+	.then(r=>r.text())
+	
+	//fetch links
+	.then(async str=>{
+		let strconst = {
+			builtins: ["js-string"], // Enable JavaScript string builtins
+			importedStringConstants: "myStrings", // Enable imported global string constants
+		}
+		
+		lih('tunggu reso')
+		let impobj = {
+		main:{
+			lihat:lih, //(...args)=>enta(lih, ...args),
+			auplay:wasm_auplay, //(...args)=>enta(wasm_auplay, ...args),
+			austop:wasm_austop, //(...args)=>enta(wasm_austop, ...args),
+			wb:wasm_wb,
+			saab:wasm_saab,
+			
+			cce:(...args)=>enta(wasm_cce, ...args),
+				brp:(...args)=>enta(wasm_brp, ...args),
+					sp:(...args)=>enta(wasm_sp, ...args),
+					svb:(...args)=>enta(wasm_svb, ...args),
+					sib:(...args)=>enta(wasm_sib, ...args),
+					sbg:(...args)=>enta(wasm_sbg, ...args),
+					draw:(...args)=>enta(wasm_draw, ...args),
+					di:(...args)=>enta(wasm_di, ...args),
+					dii:(...args)=>enta(wasm_dii, ...args),
+					end:(...args)=>enta(wasm_end, ...args),
+				//clear buffer blum bikin
+				//copy buf to buf blum bikin
+				cttt:(...args)=>enta(wasm_cttt, ...args),
+				finish:(...args)=>enta(wasm_finish, ...args),
+				
+		},
+		memory:lih((await tunggureso).memorydict),
+		}
+		lih('reso loaded')
+		
+		
+		
+		return Promise.all(
+		str
+		.split(strnewline)
+		.map(aa=>{
+			let urlini = new URL(aa,wasmlinkslink,)
+			return WebAssembly.instantiateStreaming(
+				fetch(urlini),
+				impobj,
+				strconst,
+			)
+		})
+		
+		
+		
+	)})
+}
+
+
+
+let dv = navigator.gpu.requestAdapter()
+.then(adap=>adap.requestDevice({
+	requiredFeatures: ['indirect-first-instance'], // Enable the feature here
+}))
+
+
+
+let cvd = {label:'canvas color view '+Math.random()}//canvas view descriptor
+
+let strnewline = /\r\n|\r|\n/
+
+let _aucon = class {
+	#speed
+	constructor() { //audioData
+		let curtime = aucx.currentTime
+		this.audioContext = aucx;
+		this.audioData = []; //audioData;
+		//this.audioDataList = new Map();
+		this.sources = [];
+		this.gainNodes = [];
+		this.isPlaying = false;
+		this.#speed = 1;
+		this.startTime = curtime;// global
+		this.curtime = 0;// global, ga realtime
+		this.lastseek = 0;// local
+		this.stopTime = curtime;// global
+		
+		//sekali play
+		
+	}
+
+	#createSource(audioBuffer, volume, newspeed,) {//loop,
+		const source = this.audioContext.createBufferSource();
+		source.buffer = audioBuffer;
+		source.playbackRate.value = newspeed;
+		source.loop = true
+
+		const gainNode = this.audioContext.createGain();
+		gainNode.gain.value = volume;
+
+		source.connect(gainNode).connect(this.audioContext.destination);
+
+		return { source, gainNode };
+	}
+
+	start_at(seek,newspeed,) {
+		if (this.isPlaying) return;
+		this.isPlaying = true;
+		
+		let curtime = this.audioContext.currentTime
+		
+		this.audioData.forEach(({
+			
+			//src:bufsrc,
+			buf:bufsrc,
+			start:when,
+			bufduration,
+			volume,
+			
+			buftrimstart,
+			buftrimend, // < 0, bufsrc.duration
+			bufscale,
+			
+		},i,) => {
+			when *= 1
+			volume *= 1
+			
+			buftrimstart *= 1
+			buftrimend = (buftrimend === 'src') ?bufsrc.duration :+buftrimend
+			
+			bufduration = (bufduration === 'trimmed') ?(buftrimend-buftrimstart) :bufduration //buffer time
+			bufduration = (bufduration === 'endless') ?'endless' :+bufduration //buffer time
+			
+			bufscale *= 1
+			/*
+			cara pakai start()
+				when:contexttime,
+				offset:sourcetime,
+			*/
+			
+			const { source, gainNode } = this.#createSource(bufsrc, volume, newspeed/bufscale,); //COBA1
+			
+			let whenglo = when
+			let whencx = Math.max(0,curtime +(whenglo-seek)/newspeed,)
+			
+			source.loopStart = buftrimstart
+			source.loopEnd = buftrimend //(buftrimend < 0)?bufsrc.duration:buftrimend
+			let durcx = bufduration //(bufduration < 0)?bufsrc.duration:bufduration
+			
+			let offsetlok = Math.max(0,-whenglo+seek,)/bufscale
+			offsetlok = offsetlok % (source.loopEnd-source.loopStart)
+			offsetlok += buftrimstart
+			
+			source.start(whencx,offsetlok,) //parameter start() duration tidak jelas, ganti pake stop()
+			if(bufduration !== 'endless'){
+				durcx *= 1/newspeed*bufscale
+				source.stop(whencx+durcx)
+			}
+			
+			
+			
+			
+			//
+			this.sources.push(source);
+			this.gainNodes.push(gainNode);
+			
+		});
+		//akhir
+		this.#speed = newspeed
+		this.startTime = curtime
+		this.lastseek = seek
+
+	}
+
+	destroy() {
+		if (!this.isPlaying) return
+		this.curtime = this.getCurTime()
+		this.isPlaying = false;
+		this.stopTime = this.audioContext.currentTime
+		this.sources.forEach((source) => {
+			source.stop();
+			source.disconnect();
+		});
+		this.gainNodes.forEach((gainNode) => gainNode.disconnect());
+		this.sources = [];
+		this.gainNodes = [];
+	}
+	
+	//methods
+	setAudioData(cont){
+		this.audioData = cont
+		if(this.isPlaying){
+			this.destroy()
+			this.start_at(this.curtime,this.#speed,)
+		}
+	}
+	play(){
+		//"this.curtime" beda dengan "curtime"
+		this.start_at(this.curtime,this.#speed,)
+	}
+	pause(){
+		this.destroy()
+	}
+	setCurTime(time){
+		time = Math.max(0,time,)
+		if(this.isPlaying){
+			this.destroy()
+			this.start_at(time,this.#speed,)
+		}else{
+			this.curtime = time
+		}
+	}
+	setspeed(speed){
+		speed = Math.max(0,speed,)
+		if(this.isPlaying){
+			this.destroy()
+			this.start_at(this.curtime,speed,)
+		}else{
+			this.#speed = speed
+		}
+	}
+	
+	getCurTime() {//realtime
+		let curtime = this.audioContext.currentTime
+		return this.isPlaying
+		? (
+			(this.isPlaying ? curtime : this.stopTime)
+			- this.startTime
+		)*this.#speed + this.lastseek
+		: this.curtime
+	}
+	getspeed(){
+		return this.#speed
+	}
+};
+
+suara = new _aucon()
+
+const tsvToObj = (tsv, key = null) => {
+	const [header, ...rows] =
+		tsv.trim()
+			.split(strnewline)
+			.map(r => r.split('\t'));
+
+	if (key === null) {
+		// Return an array of objects
+		return rows.map(row =>
+			Object.fromEntries(
+				header.map((col, i) => [col, row[i]])
+			)
+		);
+	} else {
+		// Return an object keyed by the given column name
+		const keyIndex = header.indexOf(key);
+		if (keyIndex === -1)
+			throw new Error(`Key "${key}" not found in header`);
+
+		return rows.reduce((out, row) => {
+			out[row[keyIndex]] = Object.fromEntries(
+				header
+					.map((col, i) => [col, row[i]])
+					.filter(([col]) => col !== key)
+			);
+			return out;
+		}, {});
+	}
+};
+
+let create_gpu_object = new Map()
+
+create_gpu_object.set(
+'object',async ({
+	type,
+	descriptor:descr,
+	data,
+	parenturl,
+},key,)=>{
+	//dulu resosrclink, sekarang parenturl
+	
+	await 0 //lih(type)
+	await 0 //lih(type)
+	
+	return data
+},)
+
+create_gpu_object.set(
+'wat_memory',async ({
+	type,
+	descriptor:descr,
+	data,
+	parenturl,
+},key,)=>{
+	//dulu resosrclink, sekarang parenturl
+	
+	await 0 //lih(type)
+	await 0 //lih(type)
+	
+				//fgoi(key,'LOAD\t\t'+key,)
+	let arrbuf = await fetch(new URL(data,parenturl,))
+	arrbuf = await arrbuf.arrayBuffer()
+				//fgoi(key,'DONE '+key,)
+	let pages = Math.max(Math.ceil(arrbuf.byteLength / 65536),1,)
+	let mem = new WebAssembly.Memory({ initial: pages });
+	new Uint8Array(mem.buffer)
+	.set(new Uint8Array(arrbuf), 0,)
+	
+	return mem
+},)
+
+create_gpu_object.set(
+'gpu_buffer',async ({
+	type,
+	descriptor:descr, //d_
+	data, //da_
+	parenturl,
+},key,)=>{
+	//dulu resosrclink, sekarang parenturl
+	
+	await 0 //lih(type)
+	await 0 //lih(type)
+	
+	//let d_obj
+	let d_key = (valtype(descr) === 'string') && (reso.get(descr) !== undefined)
+	let d_link = (valtype(descr) === 'string') && (reso.get(descr) === undefined)
+	//let da_null
+	let da_link = data !== null
+	
+				//fgoi(key,'LOAD\t\t'+key,)
+	d_key && (descr = await reso.get(descr))
+	d_link && (descr = fetch(new URL(descr,parenturl,)))
+	d_link && (descr = (await descr).json())
+	da_link && (data = fetch(new URL(data,parenturl,)))
+	da_link && (data = (await data).arrayBuffer())
+				//fgoi(key,'DONE '+key,)
+	
+	let buf = dv.createBuffer(await descr)
+	da_link && dv.queue.writeBuffer(buf,0,await data,)
+	return buf
+},)
+
+create_gpu_object.set(
+'gpu_texture',async ({
+	type,
+	descriptor:descr,
+	data,
+	parenturl,
+},key,)=>{
+	//dulu resosrclink, sekarang parenturl
+	
+	await 0 //lih(type)
+	await 0 //lih(type)
+	
+	let ibm = null //image bitmap
+	if(data !== null){
+		let img = document.createElement("img")
+		img.crossOrigin = "anonymous" // Enable CORS
+		img.src = new URL(data,parenturl,).toString()
+				//fgoi(key,'LOAD\t\t'+key,)
+		await img.decode()
+		ibm = await createImageBitmap(img)
+				//fgoi(key,'DONE '+key,)
+		
+	}
+	
+	if(pf.has(descr.format)){
+		descr.format = pf.get(descr.format)
+	}
+	if(texsize.has(descr.size)){
+		descr.size = texsize.get(descr.size)(ibm)
+	}
+	let texini = dv.createTexture(descr)
+	
+	if(data !== null){	
+		dv.queue.copyExternalImageToTexture(
+			{ source: ibm},
+			{ texture: texini},
+			[ibm.width, ibm.height],
+		)
+	}
+	
+	return texini
+},)
+
+
+
+let texsize = new Map()//texture size
+texsize.set(
+	'(canvas)',
+	()=>canv3d, //ambil width & height doang
+)
+texsize.set(
+	'(image_data)',
+	ibm=>[ibm.width,ibm.height,], //ambil width & height doang
+)
+
+
+let tex = new Map()//texture
+tex.set(
+	'(context)',
+	()=>cx3d.getCurrentTexture(), //context
+)
+
+create_gpu_object.set(
+'gpu_texture_view',async ({
+	type,
+	descriptor:descr,
+	data,
+	parenturl,
+},key,)=>{
+	//dulu resosrclink, sekarang parenturl
+	
+	await 0 //lih(type)
+	await 0 //lih(type)
+	
+	let view = (await reso.get(data)).createView(descr)
+	return view
+},)
+
+
+
+let texview = new Map()//texture view
+texview.set(
+	'(context)',
+	()=>cx3d.getCurrentTexture().createView(cvd), //context
+)
+
+create_gpu_object.set(
+'gpu_sampler',async ({
+	type,
+	descriptor:descr,
+	data,
+	parenturl,
+},key,)=>{
+	//dulu resosrclink, sekarang parenturl
+	
+	await 0 //lih(type)
+	await 0 //lih(type)
+	
+	return dv.createSampler(descr)
+},)
+
+create_gpu_object.set(
+'audio_buffer_list',async ({
+	type,
+	descriptor:descr,
+	data,
+	parenturl,
+},key,)=>{
+	//dulu resosrclink, sekarang parenturl
+	
+	//let wait = new Deferred()
+	//aubuflist.push(wait)
+	
+	await 0 //lih(type)
+	await 0 //lih(type)
+	
+				//fgoi(key,'LOAD\t\t'+key,)
+	let arr = await fetch(new URL(data,parenturl,))
+	arr = await arr.text()
+	
+	let out = tsvToObj(arr,'key',)
+	
+	//request, link
+	for(let a in out){
+		let b = out[a]
+		let f0 = await fetch(new URL(b.data,parenturl,));
+		b.data = f0.arrayBuffer();
+	}
+				//fgoi(key,'DONE '+key,)
+	
+	//tunggu buffer
+	for(let a in out){
+		let b = out[a]
+		let arrayBuffer = await b.data
+		b.data = aucx.decodeAudioData(arrayBuffer);
+	}
+	//wait.run(out)
+	return out
+},)
+
+create_gpu_object.set(
+'audio_controller',async ({
+	type,
+	descriptor:descr,
+	data,
+	parenturl,
+},key,)=>{
+	//dulu resosrclink, sekarang parenturl
+	
+	//let wait = new Deferred()
+	//descr.backsound && cont.set(key,wait,) //cont.push(wait)
+	
+	await 0 //lih(type)
+	await 0 //lih(type)
+	
+				//fgoi(key,'LOAD\t\t'+key,)
+	let obj = await fetch(new URL(data,parenturl,))
+	obj = await obj.text()
+				//fgoi(key,'DONE '+key,)
+	obj = tsvToObj(obj,null,)
+	//auconlist.push(obj)
+	
+	//ambil data dari audio_buffer_list
+	for(let con of obj){
+		let buf = await reso.get(con.src)
+		buf = await buf[con.subsrc]
+		con.buf = await buf.data
+	}
+	
+	//wait.run(obj)
+	return obj
+},)
+
+create_gpu_object.set(
+'gpu_pipeline_layout',async ({
+	type,
+	descriptor:descr,
+	data,
+	parenturl,
+},key,)=>{
+	//dulu resosrclink, sekarang parenturl
+	
+	await 0 //lih(type)
+	await 0 //lih(type)
+	
+	let bglarr = descr.bindGroupLayouts
+	bglarr.forEach(async (bgl,i,arr,)=>arr[i] = await reso.get(bgl))
+	await Promise.all(bglarr)
+	
+	return dv.createPipelineLayout(descr)
+},)
+
+create_gpu_object.set(
+'gpu_render_pipe',async ({
+	type,
+	descriptor:descr,
+	data,
+	parenturl,
+},key,)=>{
+	//dulu resosrclink, sekarang parenturl
+	
+	await 0 //lih(type)
+	await 0 //lih(type)
+	
+//layout
+	let aa = descr.layout
+	descr.layout = await reso.get(descr.layout)
+	
+//fragment module
+	descr.fragment.module =
+	await reso
+	.get(descr.fragment.module)
+	
+//vertex module
+	descr.vertex.module =
+	await reso
+	.get(descr.vertex.module)
+	
+//format
+	for(let target of descr.fragment.targets){
+		if(pf.has(target.format)){
+			target.format = pf.get(target.format)
+		}
+	}
+	
+//buffer
+				//fgoi(key,'LOAD\t\t'+key,)
+	descr.vertex.buffers = await Promise.all(
+		descr.vertex.buffers
+		.map(str=>
+			(valtype(str) === 'string')
+			?
+			fetch(new URL(str,parenturl,))
+			.then(res=>res.json())
+			:
+			str
+		)
+	)
+				//fgoi(key,'DONE '+key,)
+	
+	
+	return await dv.createRenderPipelineAsync(descr)
+},)
+
+
+
+let pf = new Map() //pipe format
+pf.set(
+	'(preferred_canvas_format)',
+	navigator.gpu.getPreferredCanvasFormat(),
+)
+
+create_gpu_object.set(
+'gpu_shader_module',async ({
+	type,
+	descriptor:descr,
+	data,
+	parenturl,
+},key,)=>{
+	//dulu resosrclink, sekarang parenturl
+	
+	await 0 //lih(type)
+	await 0 //lih(type)
+	
+	descr.code = fetch(new URL(descr.code,parenturl,))
+				//fgoi(key,'LOAD\t\t'+key,)
+	descr.code = (await descr.code).text()
+	descr.code = await descr.code
+				//fgoi(key,'DONE '+key,)
+	return dv.createShaderModule(descr)
+},)
+
+create_gpu_object.set(
+'gpu_buffer_binding',async ({
+	type,
+	descriptor:descr,
+	data,
+	parenturl,
+},key,)=>{
+	//dulu resosrclink, sekarang parenturl
+	
+	await 0 //lih(type)
+	await 0 //lih(type)
+	
+	
+	descr.buffer = 
+/*========
+	bbf.has(descr.buffer)
+	?bbf.get(descr.buffer)
+	:await reso.get(descr.buffer)
+--------*/
+	await reso.get(descr.buffer)
+	
+	return descr
+},)
+
+
+
+let bbf //buffer binding format
+
+create_gpu_object.set(
+'gpu_bind_group_layout',async ({
+	type,
+	descriptor:descr,
+	data,
+	parenturl,
+},key,)=>{
+	//dulu resosrclink, sekarang parenturl
+	
+	await 0 //lih(type)
+	await 0 //lih(type)
+	
+	return dv.createBindGroupLayout(descr)
+},)
+
+create_gpu_object.set(
+'gpu_bind_group',async ({
+	type,
+	descriptor:descr,
+	data,
+	parenturl,
+},key,)=>{
+	//dulu resosrclink, sekarang parenturl
+	
+	await 0 //lih(type)
+	await 0 //lih(type)
+	
+	for(let entry of descr.entries){
+		entry.resource = await reso.get(entry.resource)
+	}
+	let aaaa
+	descr.layout = await reso.get(aaaa = descr.layout)
+	
+	return dv.createBindGroup(descr)
+},)
+
+create_gpu_object.set(
+'gpu_command_encoder',async ({
+	type,
+	descriptor:descr,
+	data,
+	parenturl,
+},key,)=>{
+	//dulu resosrclink, sekarang parenturl
+	
+	await 0 //lih(type)
+	await 0 //lih(type)
+	
+		for(let k_encometh in data){
+			let encometh = data[k_encometh] = await reso.get(data[k_encometh])
+		}
+	
+	let o = {
+		descriptor:descr,
+		data,
+	}
+	return o
+},)
+
+create_gpu_object.set(
+'gpu_begin_render_pass',async (
+/*========
+{
+	type,
+	descriptor:descr,
+	data,
+	parenturl,
+}
+--------*/
+	encometh,
+	key,
+)=>{
+	//dulu resosrclink, sekarang parenturl
+	
+	await 0 //lih(type)
+	await 0 //lih(type)
+			
+			for(let ca of encometh.descriptor.colorAttachments){
+				ca.view = texview.has(ca.view)
+				?texview.get(ca.view)()
+				:await reso.get(ca.view)
+			}
+			let dsa = encometh.descriptor.depthStencilAttachment
+			dsa.view = await reso.get(dsa.view)
+	
+	return encometh
+},)
+
+create_gpu_object.set(
+'gpu_clear_buffer',async ({
+	type,
+	descriptor:descr,
+	data,
+	parenturl,
+},key,)=>{
+	//dulu resosrclink, sekarang parenturl
+	
+	await 0 //lih(type)
+	await 0 //lih(type)
+	
+	data[0] = await reso.get(data[0])
+	
+	return {
+		type,
+		descriptor:descr,
+		data,
+	}
+},)
+
+create_gpu_object.set(
+'gpu_copy_buffer_to_buffer',async ({
+	type,
+	descriptor:descr,
+	data,
+	parenturl,
+},key,)=>{
+	//dulu resosrclink, sekarang parenturl
+	
+	await 0 //lih(type)
+	await 0 //lih(type)
+	
+	let i = (5 <= data.length)?2:1
+	data[0] = await reso.get(data[0])
+	data[i] = await reso.get(data[i])
+	
+	return {
+		type,
+		descriptor:descr,
+		data,
+	}
+},)
+
+let main_is_called = false
+export let main = async (
+	canv3d_param,
+	cx3d_param,
+	reslinks,
+	wasmlinks,
+)=>{
+	if(main_is_called){
+		return 'Already called'
+	}
+	main_is_called = true
+	
+
+	canv3d = canv3d_param
+	cx3d = cx3d_param
+	
+loadreslinks(reslinks)
+loadwasmlinks(wasmlinks)
+
+resosrc = await resosrc
+dv = await dv
+
+cx3d.configure({ //context
+	device:dv,
+	format: presentationFormat,
+	usage:
+		GPUTextureUsage.RENDER_ATTACHMENT |
+		GPUTextureUsage.COPY_DST
+	,
+});
+
+/*========
+miscbuf = dv.createBuffer({
+	label: 'innii Uniform buffer '+Date()+'_'+Math.random().toFixed(13),
+	size: misc.byteLength,
+	usage:
+		GPUBufferUsage.UNIFORM
+		| GPUBufferUsage.COPY_SRC
+		| GPUBufferUsage.COPY_DST,
+})
+bbf = new Map()//buffer binding format
+bbf.set(
+	'(misc)',
+	miscbuf,
+)
+--------*/
+
+
+//lih(resosrc)
+for(let key in resosrc){
+	let info = resosrc[key]
+	reso.set(key,
+		create_gpu_object
+		.get(info.type)
+		?.(info,key,),
+	)
+}
+lih(reso)
+
+let memorydict = {};
+for (let [k,v,] of reso) {
+	v = await v
+	if (v instanceof WebAssembly.Memory) memorydict[k] = v;
+}
+
+tunggureso.run({
+	memorydict,
+})
+wasmsrc = await Promise.all(await wasmsrc)
+lih(wasmsrc)
+for(let wasm of wasmsrc){
+	wasm.instance.exports.init?.()
+}
+
+/*========
+buf dengan key duplikat dalam aubuflist dijadikan buf yg paling akhir
+controller menunggu aubuflist
+--------*/
+
+/*========
+aubuflist = Object.assign(...(await Promise.all(aubuflist)))
+
+//cont = [].concat(...(await Promise.all(cont)))
+cont = await Promise.all(cont)
+lih(cont)
+
+lih(auconlist)
+--------*/
+/*========
+for(let contgroup of auconlist){
+for(let con of contgroup){
+	con.src = aubuflist[con.src].data
+}
+}
+--------*/
+
+//suara.audioDataList.set('s0',cont,)
+//suara.setAudioData('s0')
+//suara.play()
+
+//cload('menutup info...')
+
+
+
+
+let draw = async ()=>{
+	submitarr = []
+	
+	encoarr = []
+	let wasmwait = []
+	for(let wasm of wasmsrc){
+		wasmwait.push(wasm.instance.exports.main?.())
+	}
+	await Promise.all(wasmwait)
+	await runWAsmQueue()
+	
+	dv.queue.submit(submitarr)
+	return dv.queue.onSubmittedWorkDone()
+}
+
+
+/*========
+let step = 0
+let spf = 1 //steps per frame
+set_setspf(val=>spf = val)
+
+let loop = async t=>{
+	now[0] = Math.round(performance.now())
+	if(step-- <= 1){
+		prevseek[0] = seek[0]
+		seek[0] = suara.getCurTime()
+		ranfl[0] = Math.random()
+		
+		step = spf
+		//await waitgpu //taruh di sebelum createView(); destroyed karena nunggu
+		dv.queue.writeBuffer(miscbuf,0,misc,)
+		draw(t)
+	}
+	
+	//requestAnimationFrame(loop)
+	//uiloop(t)
+}
+//requestAnimationFrame(loop)
+--------*/
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+*/
+
+	return pl4_4 = {
+		env_audio:{
+			play:()=>suara.play(),
+			pause:()=>suara.pause(),
+			setTime:t=>suara.setCurTime(t),
+			getTime:()=>suara.getCurTime(),
+			setSpeed:s=>suara.setspeed(s),
+			getSpeed:()=>suara.getspeed(),
+		},
+		draw,
+		wasmsrc,
+		wasm_memories:memorydict,
+	}
+}
