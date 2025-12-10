@@ -57,8 +57,16 @@ let wasm_cce = async ( //createCommandEncoder
 )=>{
 	let ce = await reso.get(encoreso)
 	ce = dv.createCommandEncoder(ce.descriptor)
-	//lih(ce)
+	
 	return editenco = ce
+}
+
+let wasm_submit = async (
+)=>{
+	await runWAsmQueue()
+	dv.queue.submit(submitarr)
+	submitarr = []
+	return dv.queue.onSubmittedWorkDone()
 }
 
 
@@ -267,8 +275,8 @@ let wasm_austop = async aucon=>{
 	}
 }
 
-//backsound
-let wasm_saab = async strreso=>{ //set _aucon audio buffer
+//env audio
+let wasm_envab = async strreso=>{ //set _aucon audio buffer
 	suara.setAudioData(await reso.get(strreso))
 }
 
@@ -301,14 +309,8 @@ let presentationFormat = navigator.gpu.getPreferredCanvasFormat()
 
 let aucx = new AudioContext()
 let suara = null
-//export let getsuara = ()=>suara
-//set_getsuara(getsuara)
 
 let reso = new Map()
-let encoarr = []
-//let aubuflist = []
-//let auconlist = [] //duration	src	loop	offset	volume	when	myspeed
-//let cont = new Map() //[]
 let tunggureso = new Deferred()
 
 
@@ -318,8 +320,7 @@ let tunggureso = new Deferred()
 
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 sampe sini:
-1. hapus cload()
-2. hapus import dari ui
+1. edit envaudio di wasm
 
 
 
@@ -387,11 +388,20 @@ let loadwasmlinks = async (wasmlinkslink)=>{
 		lih('tunggu reso')
 		let impobj = {
 		main:{
-			lihat:lih, //(...args)=>enta(lih, ...args),
-			auplay:wasm_auplay, //(...args)=>enta(wasm_auplay, ...args),
-			austop:wasm_austop, //(...args)=>enta(wasm_austop, ...args),
+			lihat:lih,
+			auplay:wasm_auplay,
+			austop:wasm_austop,
 			wb:wasm_wb,
-			saab:wasm_saab,
+			envab:wasm_envab,
+			envauplay:()=>suara.play(),
+			envaupause:()=>suara.pause(),
+			envausetTime:()=>suara.setCurTime(),
+			envaugetTime:()=>suara.getCurTime(),
+			envausetSpeed:()=>suara.setspeed(),
+			envaugetSpeed:()=>suara.getspeed(),
+			
+			
+			
 			
 			cce:(...args)=>enta(wasm_cce, ...args),
 				brp:(...args)=>enta(wasm_brp, ...args),
@@ -407,6 +417,7 @@ let loadwasmlinks = async (wasmlinkslink)=>{
 				//copy buf to buf blum bikin
 				cttt:(...args)=>enta(wasm_cttt, ...args),
 				finish:(...args)=>enta(wasm_finish, ...args),
+			submit:wasm_submit,
 				
 		},
 		memory:lih((await tunggureso).memorydict),
@@ -1177,23 +1188,6 @@ cx3d.configure({ //context
 	,
 });
 
-/*========
-miscbuf = dv.createBuffer({
-	label: 'innii Uniform buffer '+Date()+'_'+Math.random().toFixed(13),
-	size: misc.byteLength,
-	usage:
-		GPUBufferUsage.UNIFORM
-		| GPUBufferUsage.COPY_SRC
-		| GPUBufferUsage.COPY_DST,
-})
-bbf = new Map()//buffer binding format
-bbf.set(
-	'(misc)',
-	miscbuf,
-)
---------*/
-
-
 //lih(resosrc)
 for(let key in resosrc){
 	let info = resosrc[key]
@@ -1221,40 +1215,10 @@ for(let wasm of wasmsrc){
 }
 
 /*========
-buf dengan key duplikat dalam aubuflist dijadikan buf yg paling akhir
-controller menunggu aubuflist
---------*/
-
-/*========
-aubuflist = Object.assign(...(await Promise.all(aubuflist)))
-
-//cont = [].concat(...(await Promise.all(cont)))
-cont = await Promise.all(cont)
-lih(cont)
-
-lih(auconlist)
---------*/
-/*========
-for(let contgroup of auconlist){
-for(let con of contgroup){
-	con.src = aubuflist[con.src].data
-}
-}
---------*/
-
-//suara.audioDataList.set('s0',cont,)
-//suara.setAudioData('s0')
-//suara.play()
-
-//cload('menutup info...')
-
-
-
-
 let draw = async ()=>{
 	submitarr = []
 	
-	encoarr = []
+	//encoarr = []
 	let wasmwait = []
 	for(let wasm of wasmsrc){
 		wasmwait.push(wasm.instance.exports.main?.())
@@ -1265,31 +1229,8 @@ let draw = async ()=>{
 	dv.queue.submit(submitarr)
 	return dv.queue.onSubmittedWorkDone()
 }
-
-
-/*========
-let step = 0
-let spf = 1 //steps per frame
-set_setspf(val=>spf = val)
-
-let loop = async t=>{
-	now[0] = Math.round(performance.now())
-	if(step-- <= 1){
-		prevseek[0] = seek[0]
-		seek[0] = suara.getCurTime()
-		ranfl[0] = Math.random()
-		
-		step = spf
-		//await waitgpu //taruh di sebelum createView(); destroyed karena nunggu
-		dv.queue.writeBuffer(miscbuf,0,misc,)
-		draw(t)
-	}
-	
-	//requestAnimationFrame(loop)
-	//uiloop(t)
-}
-//requestAnimationFrame(loop)
 --------*/
+
 
 /*
 
@@ -1306,6 +1247,7 @@ let loop = async t=>{
 */
 
 	return pl4_4 = {
+/*========
 		env_audio:{
 			play:()=>suara.play(),
 			pause:()=>suara.pause(),
@@ -1314,8 +1256,9 @@ let loop = async t=>{
 			setSpeed:s=>suara.setspeed(s),
 			getSpeed:()=>suara.getspeed(),
 		},
-		draw,
+--------*/
+		//draw,
 		wasmsrc,
-		wasm_memories:memorydict,
+		//wasm_memories:memorydict,
 	}
 }

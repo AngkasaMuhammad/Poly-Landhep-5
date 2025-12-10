@@ -3,7 +3,7 @@
 		{
 			"text": "'use strict'\n\n\n\nimport {\n\tlihat as lih,\n} from './utilku.js'\n",
 			"visible": true,
-			"time": "1549502.59588017",
+			"time": "1556238.2879795984",
 			"speed": "1",
 			"running": true,
 			"color": [
@@ -73,7 +73,7 @@
 			]
 		},
 		{
-			"text": "\nlet submitarr = []\n\n\n\nlet wasm_cce = async ( //createCommandEncoder\n\tencoreso,\n)=>{\n\tlet ce = await reso.get(encoreso)\n\tce = dv.createCommandEncoder(ce.descriptor)\n\t//lih(ce)\n\treturn editenco = ce\n}\n\n",
+			"text": "\nlet submitarr = []\n\n\n\nlet wasm_cce = async ( //createCommandEncoder\n\tencoreso,\n)=>{\n\tlet ce = await reso.get(encoreso)\n\tce = dv.createCommandEncoder(ce.descriptor)\n\t\n\treturn editenco = ce\n}\n\nlet wasm_submit = async (\n)=>{\n\tawait runWAsmQueue()\n\tdv.queue.submit(submitarr)\n\tsubmitarr = []\n\treturn dv.queue.onSubmittedWorkDone()\n}\n\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -90,7 +90,7 @@
 		{
 			"text": "\nlet editenco = 'kkkkosong'\n\n\n\nlet wasm_brp = async ( //beginRenderPass\n\tstrrpreso,\n)=>{\n\tlet rpreso = await reso.get(strrpreso)\n\tlet descr = rpreso.descriptor\n\t\n\tfor(let ca of descr.colorAttachments){\n\t\tif(ca.view.label === cvd.label){\n\t\t\tca.view = cx3d.getCurrentTexture().createView(cvd) //context\n\t\t}\n\t}\n\t\n\tlet rp = editenco.beginRenderPass(descr)\n\t//lih(rp)\n\treturn editrp = rp\n}\n\n\nlet wasm_cttt = async ( //finish\n\tsrc,\n\tdst,\n\tsize,\n)=>{\n\tawait 99999\n\t\n\tsrc = tex.has(src) ?tex.get(src)() :(await reso.get(src))\n\tdst = tex.has(dst) ?tex.get(dst)() :(await reso.get(dst))\n\tif(\n\t\tsrc.width !== dst.width ||\n\t\tsrc.height !== dst.height\n\t) throw Error('size must match')\n\t\n\teditenco.copyTextureToTexture(\n\t\t{texture:src},\n\t\t{texture:dst},\n\t\tsrc,\n\t)\n}\n\n\nlet wasm_finish = async ( //finish\n)=>{\n\tawait 99999\n\tsubmitarr.push(editenco.finish({label:editenco.label+' --> finishhhhhh'}))\n\teditenco = 'kkkkosong1'\n}\n\n\n",
 			"visible": true,
-			"time": "730901.4369065356",
+			"time": "737637.1290055352",
 			"speed": "1",
 			"running": true,
 			"color": [
@@ -130,7 +130,7 @@
 			]
 		},
 		{
-			"text": "\n//audio sekali play\nlet wasm_auplay = async straucon=>{\n\tlet aucon = await reso.get(straucon)\n\tlet out = []\n\tfor(let con of aucon){\n\t\tlet bufsrc = con.buf //con.src\n\t\tlet when = +con.start\n\t\tlet whenglo = when +aucx.currentTime\n\t\tlet vol = +con.volume\n\t\tlet buftrimstart = +con.buftrimstart\n\t\tlet buftrimend = con.buftrimend\n\t\t\tbuftrimend = (buftrimend === 'src') ?bufsrc.duration :+buftrimend\n\t\tlet dur = con.bufduration\n\t\t\tdur = (dur === 'trimmed') ?(buftrimend-buftrimstart) :dur //buffer time\n\t\t\tdur = (dur === 'endless') ?'endless' :+dur //buffer time\n\t\tlet bufscale = +con.bufscale\n\t\t\n\t\tlet source = aucx.createBufferSource()\n\t\tout.push(source)\n\t\tsource.buffer = bufsrc\n\t\tsource.loop = true\n\t\tsource.playbackRate.value = 1/bufscale;\n\t\tconst gainNode = aucx.createGain();\t\tgainNode.gain.value = vol\n\n\t\tsource.connect(gainNode).connect(aucx.destination)\n\t\tlet curtime = aucx.currentTime\n\t\tlet whencx = curtime +when\n\t\t\n\t\tsource.loopStart = buftrimstart\n\t\tsource.loopEnd = buftrimend\n\t\tlet durcx = dur\n\t\t\n\t\tlet offsetlok = buftrimstart\n\t\t\n\t\tsource.start(whencx,offsetlok,)\n\t\tif(dur !== 'endless'){\n\t\t\tdurcx *= bufscale\n\t\t\tsource.stop(whencx+durcx)\n\t\t}\n\t}\n\treturn out\n}\n\nlet wasm_austop = async aucon=>{\n\tlih(aucon)\n\tfor(let con of await aucon){\n\t\tcon.stop()\n\t}\n}\n\n//backsound\nlet wasm_saab = async strreso=>{ //set _aucon audio buffer\n\tsuara.setAudioData(await reso.get(strreso))\n}\n",
+			"text": "\n//audio sekali play\nlet wasm_auplay = async straucon=>{\n\tlet aucon = await reso.get(straucon)\n\tlet out = []\n\tfor(let con of aucon){\n\t\tlet bufsrc = con.buf //con.src\n\t\tlet when = +con.start\n\t\tlet whenglo = when +aucx.currentTime\n\t\tlet vol = +con.volume\n\t\tlet buftrimstart = +con.buftrimstart\n\t\tlet buftrimend = con.buftrimend\n\t\t\tbuftrimend = (buftrimend === 'src') ?bufsrc.duration :+buftrimend\n\t\tlet dur = con.bufduration\n\t\t\tdur = (dur === 'trimmed') ?(buftrimend-buftrimstart) :dur //buffer time\n\t\t\tdur = (dur === 'endless') ?'endless' :+dur //buffer time\n\t\tlet bufscale = +con.bufscale\n\t\t\n\t\tlet source = aucx.createBufferSource()\n\t\tout.push(source)\n\t\tsource.buffer = bufsrc\n\t\tsource.loop = true\n\t\tsource.playbackRate.value = 1/bufscale;\n\t\tconst gainNode = aucx.createGain();\t\tgainNode.gain.value = vol\n\n\t\tsource.connect(gainNode).connect(aucx.destination)\n\t\tlet curtime = aucx.currentTime\n\t\tlet whencx = curtime +when\n\t\t\n\t\tsource.loopStart = buftrimstart\n\t\tsource.loopEnd = buftrimend\n\t\tlet durcx = dur\n\t\t\n\t\tlet offsetlok = buftrimstart\n\t\t\n\t\tsource.start(whencx,offsetlok,)\n\t\tif(dur !== 'endless'){\n\t\t\tdurcx *= bufscale\n\t\t\tsource.stop(whencx+durcx)\n\t\t}\n\t}\n\treturn out\n}\n\nlet wasm_austop = async aucon=>{\n\tlih(aucon)\n\tfor(let con of await aucon){\n\t\tcon.stop()\n\t}\n}\n\n//env audio\nlet wasm_envab = async strreso=>{ //set _aucon audio buffer\n\tsuara.setAudioData(await reso.get(strreso))\n}\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -160,7 +160,7 @@
 			]
 		},
 		{
-			"text": "\nlet canv3d = null\nlet cx3d = null\n\nlet pl4_4 = null\n\nlet presentationFormat = navigator.gpu.getPreferredCanvasFormat()\n\nlet aucx = new AudioContext()\nlet suara = null\n//export let getsuara = ()=>suara\n//set_getsuara(getsuara)\n\nlet reso = new Map()\nlet encoarr = []\n//let aubuflist = []\n//let auconlist = [] //duration\tsrc\tloop\toffset\tvolume\twhen\tmyspeed\n//let cont = new Map() //[]\nlet tunggureso = new Deferred()\n\n\n\n\n\n\n/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-\nsampe sini:\n1. hapus cload()\n2. hapus import dari ui\n\n\n\n\n=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\*/\n\n\n\n\n\n\nlet resosrc = null\nlet loadreslinks = async (reslinkslink)=>{\n\t//+++++++++++++++ resource +++++++++++++++\n\t\n\t//let reslinkslink = new URLSearchParams(location.search).get('reslinks')\n\treslinkslink = new URL(reslinkslink,location.href,)\n\tresosrc = fetch(reslinkslink)\n\t.then(r=>r.text())\n\t\n\t//fetch links\n\t.then(str=>Promise.all(\n\t\tstr\n\t\t.split(strnewline)\n\t\t.map(aa=>{\n\t\t\tlet urlini = new URL(aa,reslinkslink,)\n\t\t\treturn fetch(urlini)\n\t\t\t.then(r=>r.json())\n\t\t\t.then(out=>({\n\t\t\t\tout,\n\t\t\t\tparenturl:urlini,\n\t\t\t}))\n\t\t})\n\t))\n\t.then(arr=>{\n\t\tfor(let {out,parenturl,} of arr){ for(let k in out){\n\t\t\tlet o = out[k]\n\t\t\to.parenturl = parenturl\n\t\t}}\n\t\treturn Object.assign({},...arr.map(aa=>aa.out),)\n\t})\n}\n\n\n\n\n\n\nlet wasmsrc = null\nlet loadwasmlinks = async (wasmlinkslink)=>{\n\t//+++++++++++++++ wasm +++++++++++++++\n\t\n\t//let wasmlinkslink = new URLSearchParams(location.search).get('wasmlinks')\n\twasmlinkslink = new URL(wasmlinkslink,location.href,)\n\twasmsrc = fetch(wasmlinkslink)\n\t.then(r=>r.text())\n\t\n\t//fetch links\n\t.then(async str=>{\n\t\tlet strconst = {\n\t\t\tbuiltins: [\"js-string\"], // Enable JavaScript string builtins\n\t\t\timportedStringConstants: \"myStrings\", // Enable imported global string constants\n\t\t}\n\t\t\n\t\tlih('tunggu reso')\n\t\tlet impobj = {\n\t\tmain:{\n\t\t\tlihat:lih, //(...args)=>enta(lih, ...args),\n\t\t\tauplay:wasm_auplay, //(...args)=>enta(wasm_auplay, ...args),\n\t\t\taustop:wasm_austop, //(...args)=>enta(wasm_austop, ...args),\n\t\t\twb:wasm_wb,\n\t\t\tsaab:wasm_saab,\n\t\t\t\n\t\t\tcce:(...args)=>enta(wasm_cce, ...args),\n\t\t\t\tbrp:(...args)=>enta(wasm_brp, ...args),\n\t\t\t\t\tsp:(...args)=>enta(wasm_sp, ...args),\n\t\t\t\t\tsvb:(...args)=>enta(wasm_svb, ...args),\n\t\t\t\t\tsib:(...args)=>enta(wasm_sib, ...args),\n\t\t\t\t\tsbg:(...args)=>enta(wasm_sbg, ...args),\n\t\t\t\t\tdraw:(...args)=>enta(wasm_draw, ...args),\n\t\t\t\t\tdi:(...args)=>enta(wasm_di, ...args),\n\t\t\t\t\tdii:(...args)=>enta(wasm_dii, ...args),\n\t\t\t\t\tend:(...args)=>enta(wasm_end, ...args),\n\t\t\t\t//clear buffer blum bikin\n\t\t\t\t//copy buf to buf blum bikin\n\t\t\t\tcttt:(...args)=>enta(wasm_cttt, ...args),\n\t\t\t\tfinish:(...args)=>enta(wasm_finish, ...args),\n\t\t\t\t\n\t\t},\n\t\tmemory:lih((await tunggureso).memorydict),\n\t\t}\n\t\tlih('reso loaded')\n\t\t\n\t\t\n\t\t\n\t\treturn Promise.all(\n\t\tstr\n\t\t.split(strnewline)\n\t\t.map(aa=>{\n\t\t\tlet urlini = new URL(aa,wasmlinkslink,)\n\t\t\treturn WebAssembly.instantiateStreaming(\n\t\t\t\tfetch(urlini),\n\t\t\t\timpobj,\n\t\t\t\tstrconst,\n\t\t\t)\n\t\t})\n\t\t\n\t\t\n\t\t\n\t)})\n}\n\n\n\nlet dv = navigator.gpu.requestAdapter()\n.then(adap=>adap.requestDevice({\n\trequiredFeatures: ['indirect-first-instance'], // Enable the feature here\n}))\n\n\n\nlet cvd = {label:'canvas color view '+Math.random()}//canvas view descriptor\n\nlet strnewline = /\\r\\n|\\r|\\n/\n",
+			"text": "\nlet canv3d = null\nlet cx3d = null\n\nlet pl4_4 = null\n\nlet presentationFormat = navigator.gpu.getPreferredCanvasFormat()\n\nlet aucx = new AudioContext()\nlet suara = null\n\nlet reso = new Map()\nlet tunggureso = new Deferred()\n\n\n\n\n\n\n/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-\nsampe sini:\n1. edit envaudio di wasm\n\n\n\n\n=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\*/\n\n\n\n\n\n\nlet resosrc = null\nlet loadreslinks = async (reslinkslink)=>{\n\t//+++++++++++++++ resource +++++++++++++++\n\t\n\t//let reslinkslink = new URLSearchParams(location.search).get('reslinks')\n\treslinkslink = new URL(reslinkslink,location.href,)\n\tresosrc = fetch(reslinkslink)\n\t.then(r=>r.text())\n\t\n\t//fetch links\n\t.then(str=>Promise.all(\n\t\tstr\n\t\t.split(strnewline)\n\t\t.map(aa=>{\n\t\t\tlet urlini = new URL(aa,reslinkslink,)\n\t\t\treturn fetch(urlini)\n\t\t\t.then(r=>r.json())\n\t\t\t.then(out=>({\n\t\t\t\tout,\n\t\t\t\tparenturl:urlini,\n\t\t\t}))\n\t\t})\n\t))\n\t.then(arr=>{\n\t\tfor(let {out,parenturl,} of arr){ for(let k in out){\n\t\t\tlet o = out[k]\n\t\t\to.parenturl = parenturl\n\t\t}}\n\t\treturn Object.assign({},...arr.map(aa=>aa.out),)\n\t})\n}\n\n\n\n\n\n\nlet wasmsrc = null\nlet loadwasmlinks = async (wasmlinkslink)=>{\n\t//+++++++++++++++ wasm +++++++++++++++\n\t\n\t//let wasmlinkslink = new URLSearchParams(location.search).get('wasmlinks')\n\twasmlinkslink = new URL(wasmlinkslink,location.href,)\n\twasmsrc = fetch(wasmlinkslink)\n\t.then(r=>r.text())\n\t\n\t//fetch links\n\t.then(async str=>{\n\t\tlet strconst = {\n\t\t\tbuiltins: [\"js-string\"], // Enable JavaScript string builtins\n\t\t\timportedStringConstants: \"myStrings\", // Enable imported global string constants\n\t\t}\n\t\t\n\t\tlih('tunggu reso')\n\t\tlet impobj = {\n\t\tmain:{\n\t\t\tlihat:lih,\n\t\t\tauplay:wasm_auplay,\n\t\t\taustop:wasm_austop,\n\t\t\twb:wasm_wb,\n\t\t\tenvab:wasm_envab,\n\t\t\tenvauplay:()=>suara.play(),\n\t\t\tenvaupause:()=>suara.pause(),\n\t\t\tenvausetTime:()=>suara.setCurTime(),\n\t\t\tenvaugetTime:()=>suara.getCurTime(),\n\t\t\tenvausetSpeed:()=>suara.setspeed(),\n\t\t\tenvaugetSpeed:()=>suara.getspeed(),\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\tcce:(...args)=>enta(wasm_cce, ...args),\n\t\t\t\tbrp:(...args)=>enta(wasm_brp, ...args),\n\t\t\t\t\tsp:(...args)=>enta(wasm_sp, ...args),\n\t\t\t\t\tsvb:(...args)=>enta(wasm_svb, ...args),\n\t\t\t\t\tsib:(...args)=>enta(wasm_sib, ...args),\n\t\t\t\t\tsbg:(...args)=>enta(wasm_sbg, ...args),\n\t\t\t\t\tdraw:(...args)=>enta(wasm_draw, ...args),\n\t\t\t\t\tdi:(...args)=>enta(wasm_di, ...args),\n\t\t\t\t\tdii:(...args)=>enta(wasm_dii, ...args),\n\t\t\t\t\tend:(...args)=>enta(wasm_end, ...args),\n\t\t\t\t//clear buffer blum bikin\n\t\t\t\t//copy buf to buf blum bikin\n\t\t\t\tcttt:(...args)=>enta(wasm_cttt, ...args),\n\t\t\t\tfinish:(...args)=>enta(wasm_finish, ...args),\n\t\t\tsubmit:wasm_submit,\n\t\t\t\t\n\t\t},\n\t\tmemory:lih((await tunggureso).memorydict),\n\t\t}\n\t\tlih('reso loaded')\n\t\t\n\t\t\n\t\t\n\t\treturn Promise.all(\n\t\tstr\n\t\t.split(strnewline)\n\t\t.map(aa=>{\n\t\t\tlet urlini = new URL(aa,wasmlinkslink,)\n\t\t\treturn WebAssembly.instantiateStreaming(\n\t\t\t\tfetch(urlini),\n\t\t\t\timpobj,\n\t\t\t\tstrconst,\n\t\t\t)\n\t\t})\n\t\t\n\t\t\n\t\t\n\t)})\n}\n\n\n\nlet dv = navigator.gpu.requestAdapter()\n.then(adap=>adap.requestDevice({\n\trequiredFeatures: ['indirect-first-instance'], // Enable the feature here\n}))\n\n\n\nlet cvd = {label:'canvas color view '+Math.random()}//canvas view descriptor\n\nlet strnewline = /\\r\\n|\\r|\\n/\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -528,7 +528,7 @@
 		{
 			"text": "\nlet main_is_called = false\nexport let main = async (\n\tcanv3d_param,\n\tcx3d_param,\n\treslinks,\n\twasmlinks,\n)=>{\n\tif(main_is_called){\n\t\treturn 'Already called'\n\t}\n\tmain_is_called = true\n\t\n",
 			"visible": true,
-			"time": "11802116.993283404",
+			"time": "11853453.889842277",
 			"speed": "7.621621621621619",
 			"running": true,
 			"color": [
@@ -579,7 +579,7 @@
 			]
 		},
 		{
-			"text": "\nresosrc = await resosrc\ndv = await dv\n\ncx3d.configure({ //context\n\tdevice:dv,\n\tformat: presentationFormat,\n\tusage:\n\t\tGPUTextureUsage.RENDER_ATTACHMENT |\n\t\tGPUTextureUsage.COPY_DST\n\t,\n});\n\n/*========\nmiscbuf = dv.createBuffer({\n\tlabel: 'innii Uniform buffer '+Date()+'_'+Math.random().toFixed(13),\n\tsize: misc.byteLength,\n\tusage:\n\t\tGPUBufferUsage.UNIFORM\n\t\t| GPUBufferUsage.COPY_SRC\n\t\t| GPUBufferUsage.COPY_DST,\n})\nbbf = new Map()//buffer binding format\nbbf.set(\n\t'(misc)',\n\tmiscbuf,\n)\n--------*/\n\n\n//lih(resosrc)\nfor(let key in resosrc){\n\tlet info = resosrc[key]\n\treso.set(key,\n\t\tcreate_gpu_object\n\t\t.get(info.type)\n\t\t?.(info,key,),\n\t)\n}\nlih(reso)\n",
+			"text": "\nresosrc = await resosrc\ndv = await dv\n\ncx3d.configure({ //context\n\tdevice:dv,\n\tformat: presentationFormat,\n\tusage:\n\t\tGPUTextureUsage.RENDER_ATTACHMENT |\n\t\tGPUTextureUsage.COPY_DST\n\t,\n});\n\n//lih(resosrc)\nfor(let key in resosrc){\n\tlet info = resosrc[key]\n\treso.set(key,\n\t\tcreate_gpu_object\n\t\t.get(info.type)\n\t\t?.(info,key,),\n\t)\n}\nlih(reso)\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -607,21 +607,6 @@
 					"frame": "0"
 				}
 			]
-		},
-		{
-			"text": "\n/*========\nbuf dengan key duplikat dalam aubuflist dijadikan buf yg paling akhir\ncontroller menunggu aubuflist\n--------*/\n\n/*========\naubuflist = Object.assign(...(await Promise.all(aubuflist)))\n\n//cont = [].concat(...(await Promise.all(cont)))\ncont = await Promise.all(cont)\nlih(cont)\n\nlih(auconlist)\n--------*/\n/*========\nfor(let contgroup of auconlist){\nfor(let con of contgroup){\n\tcon.src = aubuflist[con.src].data\n}\n}\n--------*/\n\n//suara.audioDataList.set('s0',cont,)\n//suara.setAudioData('s0')\n//suara.play()\n\n//cload('menutup info...')\n\n\n\n",
-			"visible": true,
-			"time": "0",
-			"speed": "1",
-			"running": false,
-			"color": [
-				{
-					"r": "222",
-					"g": "188",
-					"b": "255",
-					"frame": "0"
-				}
-			]
 		}
 	],
 	[
@@ -641,7 +626,7 @@
 			]
 		},
 		{
-			"text": "\nlet draw = async ()=>{\n\tsubmitarr = []\n\t\n\tencoarr = []\n\tlet wasmwait = []\n\tfor(let wasm of wasmsrc){\n\t\twasmwait.push(wasm.instance.exports.main?.())\n\t}\n\tawait Promise.all(wasmwait)\n\tawait runWAsmQueue()\n\t\n\tdv.queue.submit(submitarr)\n\treturn dv.queue.onSubmittedWorkDone()\n}\n\n",
+			"text": "\n/*========\nlet draw = async ()=>{\n\tsubmitarr = []\n\t\n\t//encoarr = []\n\tlet wasmwait = []\n\tfor(let wasm of wasmsrc){\n\t\twasmwait.push(wasm.instance.exports.main?.())\n\t}\n\tawait Promise.all(wasmwait)\n\tawait runWAsmQueue()\n\t\n\tdv.queue.submit(submitarr)\n\treturn dv.queue.onSubmittedWorkDone()\n}\n--------*/\n\n",
 			"visible": true,
 			"time": "0.00000",
 			"speed": "1",
@@ -650,38 +635,6 @@
 				{
 					"r": "255",
 					"g": "155",
-					"b": "255",
-					"frame": "0"
-				}
-			]
-		}
-	],
-	[
-		{
-			"text": "",
-			"visible": false,
-			"time": "0",
-			"speed": "1",
-			"running": false,
-			"color": [
-				{
-					"r": "255",
-					"g": "255",
-					"b": "255",
-					"frame": "0"
-				}
-			]
-		},
-		{
-			"text": "\n/*========\nlet step = 0\nlet spf = 1 //steps per frame\nset_setspf(val=>spf = val)\n\nlet loop = async t=>{\n\tnow[0] = Math.round(performance.now())\n\tif(step-- <= 1){\n\t\tprevseek[0] = seek[0]\n\t\tseek[0] = suara.getCurTime()\n\t\tranfl[0] = Math.random()\n\t\t\n\t\tstep = spf\n\t\t//await waitgpu //taruh di sebelum createView(); destroyed karena nunggu\n\t\tdv.queue.writeBuffer(miscbuf,0,misc,)\n\t\tdraw(t)\n\t}\n\t\n\t//requestAnimationFrame(loop)\n\t//uiloop(t)\n}\n//requestAnimationFrame(loop)\n--------*/\n",
-			"visible": true,
-			"time": "0",
-			"speed": "1",
-			"running": false,
-			"color": [
-				{
-					"r": "255",
-					"g": "255",
 					"b": "255",
 					"frame": "0"
 				}
@@ -741,9 +694,9 @@
 	],
 	[
 		{
-			"text": "\n\treturn pl4_4 = {\n\t\tenv_audio:{\n\t\t\tplay:()=>suara.play(),\n\t\t\tpause:()=>suara.pause(),\n\t\t\tsetTime:t=>suara.setCurTime(t),\n\t\t\tgetTime:()=>suara.getCurTime(),\n\t\t\tsetSpeed:s=>suara.setspeed(s),\n\t\t\tgetSpeed:()=>suara.getspeed(),\n\t\t},\n\t\tdraw,\n\t\twasmsrc,\n\t\twasm_memories:memorydict,\n\t}\n}\n",
+			"text": "\n\treturn pl4_4 = {\n/*========\n\t\tenv_audio:{\n\t\t\tplay:()=>suara.play(),\n\t\t\tpause:()=>suara.pause(),\n\t\t\tsetTime:t=>suara.setCurTime(t),\n\t\t\tgetTime:()=>suara.getCurTime(),\n\t\t\tsetSpeed:s=>suara.setspeed(s),\n\t\t\tgetSpeed:()=>suara.getspeed(),\n\t\t},\n--------*/\n\t\t//draw,\n\t\twasmsrc,\n\t\t//wasm_memories:memorydict,\n\t}\n}\n",
 			"visible": true,
-			"time": "1549322.4312288165",
+			"time": "1556058.123328245",
 			"speed": "1",
 			"running": true,
 			"color": [
