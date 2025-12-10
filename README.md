@@ -1,2 +1,2 @@
 # Poly Landhep 5
- 3D Engine dengan audio sinkronisasi
+ 3D Engine yang synchronized dengan audio context time
