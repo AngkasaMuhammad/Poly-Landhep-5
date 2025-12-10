@@ -4,7 +4,7 @@
 
 import {
 	lihat as lih,
-} from 'utilku.js'
+} from './utilku.js'
 
 let valtype = val=>{
     if (val === null) {
