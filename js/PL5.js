@@ -301,8 +301,8 @@ let wasm_wb = async (
 	)
 }
 
-let wasm_getreso = async str=>{
-	return await reso.get(str)
+let wasm_getreso = str=>{
+	return reso.get(str)
 }
 
 let canv3d = null
@@ -393,6 +393,7 @@ let loadwasmlinks = async (wasmlinkslink)=>{
 		lih('tunggu reso')
 		let impobj = {
 		main:{
+			getreso:wasm_getreso,
 			lihat:lih,
 			auplay:wasm_auplay,
 			austop:wasm_austop,
