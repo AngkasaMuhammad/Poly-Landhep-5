@@ -280,6 +280,7 @@ let wasm_envab = async strreso=>{ //set _aucon audio buffer
 	suara.setAudioData(await reso.get(strreso))
 }
 
+//lainlain
 let wasm_wb = async (
 	buffer, //str
 	bufferOffset, //number byte
@@ -298,6 +299,10 @@ let wasm_wb = async (
 		dataOffset,
 		size,
 	)
+}
+
+let wasm_getreso = async str=>{
+	return await reso.get(str)
 }
 
 let canv3d = null

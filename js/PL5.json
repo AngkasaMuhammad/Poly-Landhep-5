@@ -3,7 +3,7 @@
 		{
 			"text": "'use strict'\n\n\n\nimport {\n\tlihat as lih,\n} from './utilku.js'\n",
 			"visible": true,
-			"time": "1556238.2879795984",
+			"time": "1556765.7961801318",
 			"speed": "1",
 			"running": true,
 			"color": [
@@ -90,7 +90,7 @@
 		{
 			"text": "\nlet editenco = 'kkkkosong'\n\n\n\nlet wasm_brp = async ( //beginRenderPass\n\tstrrpreso,\n)=>{\n\tlet rpreso = await reso.get(strrpreso)\n\tlet descr = rpreso.descriptor\n\t\n\tfor(let ca of descr.colorAttachments){\n\t\tif(ca.view.label === cvd.label){\n\t\t\tca.view = cx3d.getCurrentTexture().createView(cvd) //context\n\t\t}\n\t}\n\t\n\tlet rp = editenco.beginRenderPass(descr)\n\t//lih(rp)\n\treturn editrp = rp\n}\n\n\nlet wasm_cttt = async ( //finish\n\tsrc,\n\tdst,\n\tsize,\n)=>{\n\tawait 99999\n\t\n\tsrc = tex.has(src) ?tex.get(src)() :(await reso.get(src))\n\tdst = tex.has(dst) ?tex.get(dst)() :(await reso.get(dst))\n\tif(\n\t\tsrc.width !== dst.width ||\n\t\tsrc.height !== dst.height\n\t) throw Error('size must match')\n\t\n\teditenco.copyTextureToTexture(\n\t\t{texture:src},\n\t\t{texture:dst},\n\t\tsrc,\n\t)\n}\n\n\nlet wasm_finish = async ( //finish\n)=>{\n\tawait 99999\n\tsubmitarr.push(editenco.finish({label:editenco.label+' --> finishhhhhh'}))\n\teditenco = 'kkkkosong1'\n}\n\n\n",
 			"visible": true,
-			"time": "737637.1290055352",
+			"time": "738164.6372052724",
 			"speed": "1",
 			"running": true,
 			"color": [
@@ -145,7 +145,7 @@
 			]
 		},
 		{
-			"text": "\nlet wasm_wb = async (\n\tbuffer, //str\n\tbufferOffset, //number byte\n\tdata, //str\n\tdataOffset, //number byte\n\tsize, //number byte\n)=>{\n\tbuffer = await reso.get(buffer)\n\tdata = (await reso.get(data)).buffer\n\n\t\n\tdv.queue.writeBuffer(\n\t\tbuffer,\n\t\tbufferOffset,\n\t\tdata,\n\t\tdataOffset,\n\t\tsize,\n\t)\n}\n",
+			"text": "\n//lainlain\nlet wasm_wb = async (\n\tbuffer, //str\n\tbufferOffset, //number byte\n\tdata, //str\n\tdataOffset, //number byte\n\tsize, //number byte\n)=>{\n\tbuffer = await reso.get(buffer)\n\tdata = (await reso.get(data)).buffer\n\n\t\n\tdv.queue.writeBuffer(\n\t\tbuffer,\n\t\tbufferOffset,\n\t\tdata,\n\t\tdataOffset,\n\t\tsize,\n\t)\n}\n\nlet wasm_getreso = async str=>{\n\treturn await reso.get(str)\n}\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -528,7 +528,7 @@
 		{
 			"text": "\nlet main_is_called = false\nexport let main = async (\n\tcanv3d_param,\n\tcx3d_param,\n\treslinks,\n\twasmlinks,\n)=>{\n\tif(main_is_called){\n\t\treturn 'Already called'\n\t}\n\tmain_is_called = true\n\t\n",
 			"visible": true,
-			"time": "11853453.889842277",
+			"time": "11857474.357750643",
 			"speed": "7.621621621621619",
 			"running": true,
 			"color": [
@@ -696,7 +696,7 @@
 		{
 			"text": "\n\treturn pl4_4 = {\n/*========\n\t\tenv_audio:{\n\t\t\tplay:()=>suara.play(),\n\t\t\tpause:()=>suara.pause(),\n\t\t\tsetTime:t=>suara.setCurTime(t),\n\t\t\tgetTime:()=>suara.getCurTime(),\n\t\t\tsetSpeed:s=>suara.setspeed(s),\n\t\t\tgetSpeed:()=>suara.getspeed(),\n\t\t},\n--------*/\n\t\t//draw,\n\t\twasmsrc,\n\t\t//wasm_memories:memorydict,\n\t}\n}\n",
 			"visible": true,
-			"time": "1556058.123328245",
+			"time": "1556585.6315287785",
 			"speed": "1",
 			"running": true,
 			"color": [
