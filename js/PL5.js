@@ -426,7 +426,8 @@ let loadwasmlinks = async (wasmlinkslink)=>{
 			submit:wasm_submit,
 				
 		},
-		memory:lih((await tunggureso).memorydict),
+		memory:(await tunggureso).memorydict,
+		table:(await tunggureso).tabledict,
 		}
 		lih('reso loaded')
 		
@@ -674,6 +675,26 @@ create_gpu_object.set(
 	await 0 //lih(type)
 	
 	return data
+},)
+
+create_gpu_object.set(
+'wat_table',async ({
+	type,
+	descriptor:descr,
+	data,
+	parenturl,
+},key,)=>{
+	//dulu resosrclink, sekarang parenturl
+	
+	await 0 //lih(type)
+	await 0 //lih(type)
+	
+	let t = new WebAssembly.Table({
+		initial: descr.initial,
+		element: descr.element,
+	})
+	
+	return t
 },)
 
 create_gpu_object.set(
@@ -1206,13 +1227,16 @@ for(let key in resosrc){
 lih(reso)
 
 let memorydict = {};
+let tabledict = {};
 for (let [k,v,] of reso) {
 	v = await v
-	if (v instanceof WebAssembly.Memory) memorydict[k] = v;
+	if (v instanceof WebAssembly.Memory) memorydict[k] = v
+	else if (v instanceof WebAssembly.Table) tabledict[k] = v
 }
 
 tunggureso.run({
 	memorydict,
+	tabledict,
 })
 wasmsrc = await Promise.all(await wasmsrc)
 lih(wasmsrc)

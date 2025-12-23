@@ -3,7 +3,7 @@
 		{
 			"text": "'use strict'\n\n\n\nimport {\n\tlihat as lih,\n} from './utilku.js'\n",
 			"visible": true,
-			"time": "1558483.2997802198",
+			"time": "1561341.4676805106",
 			"speed": "1",
 			"running": true,
 			"color": [
@@ -90,7 +90,7 @@
 		{
 			"text": "\nlet editenco = 'kkkkosong'\n\n\n\nlet wasm_brp = async ( //beginRenderPass\n\tstrrpreso,\n)=>{\n\tlet rpreso = await reso.get(strrpreso)\n\tlet descr = rpreso.descriptor\n\t\n\tfor(let ca of descr.colorAttachments){\n\t\tif(ca.view.label === cvd.label){\n\t\t\tca.view = cx3d.getCurrentTexture().createView(cvd) //context\n\t\t}\n\t}\n\t\n\tlet rp = editenco.beginRenderPass(descr)\n\t//lih(rp)\n\treturn editrp = rp\n}\n\n\nlet wasm_cttt = async ( //finish\n\tsrc,\n\tdst,\n\tsize,\n)=>{\n\tawait 99999\n\t\n\tsrc = tex.has(src) ?tex.get(src)() :(await reso.get(src))\n\tdst = tex.has(dst) ?tex.get(dst)() :(await reso.get(dst))\n\tif(\n\t\tsrc.width !== dst.width ||\n\t\tsrc.height !== dst.height\n\t) throw Error('size must match')\n\t\n\teditenco.copyTextureToTexture(\n\t\t{texture:src},\n\t\t{texture:dst},\n\t\tsrc,\n\t)\n}\n\n\nlet wasm_finish = async ( //finish\n)=>{\n\tawait 99999\n\tsubmitarr.push(editenco.finish({label:editenco.label+' --> finishhhhhh'}))\n\teditenco = 'kkkkosong1'\n}\n\n\n",
 			"visible": true,
-			"time": "739882.1408052176",
+			"time": "742740.3087049471",
 			"speed": "1",
 			"running": true,
 			"color": [
@@ -160,7 +160,7 @@
 			]
 		},
 		{
-			"text": "\nlet canv3d = null\nlet cx3d = null\n\nlet pl4_4 = null\n\nlet presentationFormat = navigator.gpu.getPreferredCanvasFormat()\n\nlet aucx = new AudioContext()\nlet suara = null\n\nlet reso = new Map()\nlet tunggureso = new Deferred()\n\n\n\n\n\n\n/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-\nsampe sini:\n1. edit envaudio di wasm\n\n\n\n\n=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\*/\n\n\n\n\n\n\nlet resosrc = null\nlet loadreslinks = async (reslinkslink)=>{\n\t//+++++++++++++++ resource +++++++++++++++\n\t\n\t//let reslinkslink = new URLSearchParams(location.search).get('reslinks')\n\treslinkslink = new URL(reslinkslink,location.href,)\n\tresosrc = fetch(reslinkslink)\n\t.then(r=>r.text())\n\t\n\t//fetch links\n\t.then(str=>Promise.all(\n\t\tstr\n\t\t.split(strnewline)\n\t\t.map(aa=>{\n\t\t\tlet urlini = new URL(aa,reslinkslink,)\n\t\t\treturn fetch(urlini)\n\t\t\t.then(r=>r.json())\n\t\t\t.then(out=>({\n\t\t\t\tout,\n\t\t\t\tparenturl:urlini,\n\t\t\t}))\n\t\t})\n\t))\n\t.then(arr=>{\n\t\tfor(let {out,parenturl,} of arr){ for(let k in out){\n\t\t\tlet o = out[k]\n\t\t\to.parenturl = parenturl\n\t\t}}\n\t\treturn Object.assign({},...arr.map(aa=>aa.out),)\n\t})\n}\n\n\n\n\n\n\nlet wasmsrc = null\nlet loadwasmlinks = async (wasmlinkslink)=>{\n\t//+++++++++++++++ wasm +++++++++++++++\n\t\n\t//let wasmlinkslink = new URLSearchParams(location.search).get('wasmlinks')\n\twasmlinkslink = new URL(wasmlinkslink,location.href,)\n\twasmsrc = fetch(wasmlinkslink)\n\t.then(r=>r.text())\n\t\n\t//fetch links\n\t.then(async str=>{\n\t\tlet strconst = {\n\t\t\tbuiltins: [\"js-string\"], // Enable JavaScript string builtins\n\t\t\timportedStringConstants: \"myStrings\", // Enable imported global string constants\n\t\t}\n\t\t\n\t\tlih('tunggu reso')\n\t\tlet impobj = {\n\t\tmain:{\n\t\t\tgetreso:wasm_getreso,\n\t\t\tlihat:lih,\n\t\t\tauplay:wasm_auplay,\n\t\t\taustop:wasm_austop,\n\t\t\twb:wasm_wb,\n\t\t\tenvab:wasm_envab,\n\t\t\tenvauplay:()=>suara.play(),\n\t\t\tenvaupause:()=>suara.pause(),\n\t\t\tenvausetTime:()=>suara.setCurTime(),\n\t\t\tenvaugetTime:()=>suara.getCurTime(),\n\t\t\tenvausetSpeed:()=>suara.setspeed(),\n\t\t\tenvaugetSpeed:()=>suara.getspeed(),\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\tcce:(...args)=>enta(wasm_cce, ...args),\n\t\t\t\tbrp:(...args)=>enta(wasm_brp, ...args),\n\t\t\t\t\tsp:(...args)=>enta(wasm_sp, ...args),\n\t\t\t\t\tsvb:(...args)=>enta(wasm_svb, ...args),\n\t\t\t\t\tsib:(...args)=>enta(wasm_sib, ...args),\n\t\t\t\t\tsbg:(...args)=>enta(wasm_sbg, ...args),\n\t\t\t\t\tdraw:(...args)=>enta(wasm_draw, ...args),\n\t\t\t\t\tdi:(...args)=>enta(wasm_di, ...args),\n\t\t\t\t\tdii:(...args)=>enta(wasm_dii, ...args),\n\t\t\t\t\tend:(...args)=>enta(wasm_end, ...args),\n\t\t\t\t//clear buffer blum bikin\n\t\t\t\t//copy buf to buf blum bikin\n\t\t\t\tcttt:(...args)=>enta(wasm_cttt, ...args),\n\t\t\t\tfinish:(...args)=>enta(wasm_finish, ...args),\n\t\t\tsubmit:wasm_submit,\n\t\t\t\t\n\t\t},\n\t\tmemory:lih((await tunggureso).memorydict),\n\t\t}\n\t\tlih('reso loaded')\n\t\t\n\t\t\n\t\t\n\t\treturn Promise.all(\n\t\tstr\n\t\t.split(strnewline)\n\t\t.map(aa=>{\n\t\t\tlet urlini = new URL(aa,wasmlinkslink,)\n\t\t\treturn WebAssembly.instantiateStreaming(\n\t\t\t\tfetch(urlini),\n\t\t\t\timpobj,\n\t\t\t\tstrconst,\n\t\t\t)\n\t\t})\n\t\t\n\t\t\n\t\t\n\t)})\n}\n\n\n\nlet dv = navigator.gpu.requestAdapter()\n.then(adap=>adap.requestDevice({\n\trequiredFeatures: ['indirect-first-instance'], // Enable the feature here\n}))\n\n\n\nlet cvd = {label:'canvas color view '+Math.random()}//canvas view descriptor\n\nlet strnewline = /\\r\\n|\\r|\\n/\n",
+			"text": "\nlet canv3d = null\nlet cx3d = null\n\nlet pl4_4 = null\n\nlet presentationFormat = navigator.gpu.getPreferredCanvasFormat()\n\nlet aucx = new AudioContext()\nlet suara = null\n\nlet reso = new Map()\nlet tunggureso = new Deferred()\n\n\n\n\n\n\n/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-\nsampe sini:\n1. edit envaudio di wasm\n\n\n\n\n=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\*/\n\n\n\n\n\n\nlet resosrc = null\nlet loadreslinks = async (reslinkslink)=>{\n\t//+++++++++++++++ resource +++++++++++++++\n\t\n\t//let reslinkslink = new URLSearchParams(location.search).get('reslinks')\n\treslinkslink = new URL(reslinkslink,location.href,)\n\tresosrc = fetch(reslinkslink)\n\t.then(r=>r.text())\n\t\n\t//fetch links\n\t.then(str=>Promise.all(\n\t\tstr\n\t\t.split(strnewline)\n\t\t.map(aa=>{\n\t\t\tlet urlini = new URL(aa,reslinkslink,)\n\t\t\treturn fetch(urlini)\n\t\t\t.then(r=>r.json())\n\t\t\t.then(out=>({\n\t\t\t\tout,\n\t\t\t\tparenturl:urlini,\n\t\t\t}))\n\t\t})\n\t))\n\t.then(arr=>{\n\t\tfor(let {out,parenturl,} of arr){ for(let k in out){\n\t\t\tlet o = out[k]\n\t\t\to.parenturl = parenturl\n\t\t}}\n\t\treturn Object.assign({},...arr.map(aa=>aa.out),)\n\t})\n}\n\n\n\n\n\n\nlet wasmsrc = null\nlet loadwasmlinks = async (wasmlinkslink)=>{\n\t//+++++++++++++++ wasm +++++++++++++++\n\t\n\t//let wasmlinkslink = new URLSearchParams(location.search).get('wasmlinks')\n\twasmlinkslink = new URL(wasmlinkslink,location.href,)\n\twasmsrc = fetch(wasmlinkslink)\n\t.then(r=>r.text())\n\t\n\t//fetch links\n\t.then(async str=>{\n\t\tlet strconst = {\n\t\t\tbuiltins: [\"js-string\"], // Enable JavaScript string builtins\n\t\t\timportedStringConstants: \"myStrings\", // Enable imported global string constants\n\t\t}\n\t\t\n\t\tlih('tunggu reso')\n\t\tlet impobj = {\n\t\tmain:{\n\t\t\tgetreso:wasm_getreso,\n\t\t\tlihat:lih,\n\t\t\tauplay:wasm_auplay,\n\t\t\taustop:wasm_austop,\n\t\t\twb:wasm_wb,\n\t\t\tenvab:wasm_envab,\n\t\t\tenvauplay:()=>suara.play(),\n\t\t\tenvaupause:()=>suara.pause(),\n\t\t\tenvausetTime:()=>suara.setCurTime(),\n\t\t\tenvaugetTime:()=>suara.getCurTime(),\n\t\t\tenvausetSpeed:()=>suara.setspeed(),\n\t\t\tenvaugetSpeed:()=>suara.getspeed(),\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\tcce:(...args)=>enta(wasm_cce, ...args),\n\t\t\t\tbrp:(...args)=>enta(wasm_brp, ...args),\n\t\t\t\t\tsp:(...args)=>enta(wasm_sp, ...args),\n\t\t\t\t\tsvb:(...args)=>enta(wasm_svb, ...args),\n\t\t\t\t\tsib:(...args)=>enta(wasm_sib, ...args),\n\t\t\t\t\tsbg:(...args)=>enta(wasm_sbg, ...args),\n\t\t\t\t\tdraw:(...args)=>enta(wasm_draw, ...args),\n\t\t\t\t\tdi:(...args)=>enta(wasm_di, ...args),\n\t\t\t\t\tdii:(...args)=>enta(wasm_dii, ...args),\n\t\t\t\t\tend:(...args)=>enta(wasm_end, ...args),\n\t\t\t\t//clear buffer blum bikin\n\t\t\t\t//copy buf to buf blum bikin\n\t\t\t\tcttt:(...args)=>enta(wasm_cttt, ...args),\n\t\t\t\tfinish:(...args)=>enta(wasm_finish, ...args),\n\t\t\tsubmit:wasm_submit,\n\t\t\t\t\n\t\t},\n\t\tmemory:(await tunggureso).memorydict,\n\t\ttable:(await tunggureso).tabledict,\n\t\t}\n\t\tlih('reso loaded')\n\t\t\n\t\t\n\t\t\n\t\treturn Promise.all(\n\t\tstr\n\t\t.split(strnewline)\n\t\t.map(aa=>{\n\t\t\tlet urlini = new URL(aa,wasmlinkslink,)\n\t\t\treturn WebAssembly.instantiateStreaming(\n\t\t\t\tfetch(urlini),\n\t\t\t\timpobj,\n\t\t\t\tstrconst,\n\t\t\t)\n\t\t})\n\t\t\n\t\t\n\t\t\n\t)})\n}\n\n\n\nlet dv = navigator.gpu.requestAdapter()\n.then(adap=>adap.requestDevice({\n\trequiredFeatures: ['indirect-first-instance'], // Enable the feature here\n}))\n\n\n\nlet cvd = {label:'canvas color view '+Math.random()}//canvas view descriptor\n\nlet strnewline = /\\r\\n|\\r|\\n/\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -264,6 +264,21 @@
 					"r": "255",
 					"g": "188",
 					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\ncreate_gpu_object.set(\n'wat_table',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\tlet t = new WebAssembly.Table({\n\t\tinitial: descr.initial,\n\t\telement: descr.element,\n\t})\n\t\n\treturn t\n},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "88",
+					"b": "88",
 					"frame": "0"
 				}
 			]
@@ -528,7 +543,7 @@
 		{
 			"text": "\nlet main_is_called = false\nexport let main = async (\n\tcanv3d_param,\n\tcx3d_param,\n\treslinks,\n\twasmlinks,\n)=>{\n\tif(main_is_called){\n\t\treturn 'Already called'\n\t}\n\tmain_is_called = true\n\t\n",
 			"visible": true,
-			"time": "11870564.520324826",
+			"time": "11892348.394593613",
 			"speed": "7.621621621621619",
 			"running": true,
 			"color": [
@@ -594,7 +609,7 @@
 			]
 		},
 		{
-			"text": "\nlet memorydict = {};\nfor (let [k,v,] of reso) {\n\tv = await v\n\tif (v instanceof WebAssembly.Memory) memorydict[k] = v;\n}\n\ntunggureso.run({\n\tmemorydict,\n})\nwasmsrc = await Promise.all(await wasmsrc)\nlih(wasmsrc)\nfor(let wasm of wasmsrc){\n\twasm.instance.exports.init?.()\n}\n",
+			"text": "\nlet memorydict = {};\nlet tabledict = {};\nfor (let [k,v,] of reso) {\n\tv = await v\n\tif (v instanceof WebAssembly.Memory) memorydict[k] = v\n\telse if (v instanceof WebAssembly.Table) tabledict[k] = v\n}\n\ntunggureso.run({\n\tmemorydict,\n\ttabledict,\n})\nwasmsrc = await Promise.all(await wasmsrc)\nlih(wasmsrc)\nfor(let wasm of wasmsrc){\n\twasm.instance.exports.init?.()\n}\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -696,7 +711,7 @@
 		{
 			"text": "\n\treturn pl4_4 = {\n/*========\n\t\tenv_audio:{\n\t\t\tplay:()=>suara.play(),\n\t\t\tpause:()=>suara.pause(),\n\t\t\tsetTime:t=>suara.setCurTime(t),\n\t\t\tgetTime:()=>suara.getCurTime(),\n\t\t\tsetSpeed:s=>suara.setspeed(s),\n\t\t\tgetSpeed:()=>suara.getspeed(),\n\t\t},\n--------*/\n\t\t//draw,\n\t\twasmsrc,\n\t\t//wasm_memories:memorydict,\n\t}\n}\n",
 			"visible": true,
-			"time": "1558303.1351288664",
+			"time": "1561161.3030291572",
 			"speed": "1",
 			"running": true,
 			"color": [
