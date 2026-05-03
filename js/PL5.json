@@ -3,7 +3,7 @@
 		{
 			"text": "'use strict'\n\n\n\nimport {\n\tlihat as lih,\n} from './utilku.js'\n",
 			"visible": true,
-			"time": "1561341.4676805106",
+			"time": "2001560.0496131154",
 			"speed": "1",
 			"running": true,
 			"color": [
@@ -73,7 +73,7 @@
 			]
 		},
 		{
-			"text": "\nlet submitarr = []\n\n\n\nlet wasm_cce = async ( //createCommandEncoder\n\tencoreso,\n)=>{\n\tlet ce = await reso.get(encoreso)\n\tce = dv.createCommandEncoder(ce.descriptor)\n\t\n\treturn editenco = ce\n}\n\nlet wasm_submit = async (\n)=>{\n\tawait runWAsmQueue()\n\tdv.queue.submit(submitarr)\n\tsubmitarr = []\n\treturn dv.queue.onSubmittedWorkDone()\n}\n\n",
+			"text": "\nlet submitarr = []\nlet submitdone = null\n\n\n\nlet wasm_cce = async ( //createCommandEncoder\n\tencoreso,\n)=>{\n\tlet ce = await reso.get(encoreso)\n\tce = dv.createCommandEncoder(ce.descriptor)\n\treturn editenco = ce\n}\n\nlet wasm_submit = async (\n)=>{\n\tawait submitdone\n\tawait runWAsmQueue()\n\tdv.queue.submit(submitarr)\n\tsubmitarr = []\n\treturn submitdone = dv.queue.onSubmittedWorkDone()\n}\n\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -90,7 +90,7 @@
 		{
 			"text": "\nlet editenco = 'kkkkosong'\n\n\n\nlet wasm_brp = async ( //beginRenderPass\n\tstrrpreso,\n)=>{\n\tlet rpreso = await reso.get(strrpreso)\n\tlet descr = rpreso.descriptor\n\t\n\tfor(let ca of descr.colorAttachments){\n\t\tif(ca.view.label === cvd.label){\n\t\t\tca.view = cx3d.getCurrentTexture().createView(cvd) //context\n\t\t}\n\t}\n\t\n\tlet rp = editenco.beginRenderPass(descr)\n\t//lih(rp)\n\treturn editrp = rp\n}\n\n\nlet wasm_cttt = async ( //finish\n\tsrc,\n\tdst,\n\tsize,\n)=>{\n\tawait 99999\n\t\n\tsrc = tex.has(src) ?tex.get(src)() :(await reso.get(src))\n\tdst = tex.has(dst) ?tex.get(dst)() :(await reso.get(dst))\n\tif(\n\t\tsrc.width !== dst.width ||\n\t\tsrc.height !== dst.height\n\t) throw Error('size must match')\n\t\n\teditenco.copyTextureToTexture(\n\t\t{texture:src},\n\t\t{texture:dst},\n\t\tsrc,\n\t)\n}\n\n\nlet wasm_finish = async ( //finish\n)=>{\n\tawait 99999\n\tsubmitarr.push(editenco.finish({label:editenco.label+' --> finishhhhhh'}))\n\teditenco = 'kkkkosong1'\n}\n\n\n",
 			"visible": true,
-			"time": "742740.3087049471",
+			"time": "1182958.8906092492",
 			"speed": "1",
 			"running": true,
 			"color": [
@@ -115,7 +115,7 @@
 			]
 		},
 		{
-			"text": "\nlet editrp = 'kosonggg g gg'\n\n\n\nlet wasm_sp = async ( //setPipeline\n\tstrpipereso\n)=>{\n\tlet pipe = await reso.get(strpipereso)\n\teditrp.setPipeline(pipe)\n}\n\n\nlet wasm_svb = async ( //setVertexBuffer\n\tslot,\n\tstrbufreso,\n\toffset,\n\tsize,\n)=>{\n\tlet buf = await reso.get(strbufreso)\n\tif(size < 0){\n\t\teditrp.setVertexBuffer(slot,buf,offset,)\n\t}else{\n\t\teditrp.setVertexBuffer(slot,buf,offset,size,)\n\t}\n}\n\n\nlet wasm_sib = async ( //setIndexBuffer\n\tstrbufreso,\n\tindexFormat,\n\toffset,\n\tsize,\n)=>{\n\tlet buf = await reso.get(strbufreso)\n\tif(size < 0){\n\t\teditrp.setIndexBuffer(buf,indexFormat,offset,)\n\t}else{\n\t\teditrp.setIndexBuffer(buf,indexFormat,offset,size,)\n\t}\n}\n\n\nlet wasm_sbg = async ( //setBindGroup\n\tindex,\n\tstrbgreso,\n)=>{\n\tlet bg = await reso.get(strbgreso)\n\teditrp.setBindGroup(index,bg,)\n}\n\n\nlet wasm_dii = async ( //drawIndexedIndirect\n\tstrbufreso,\n\toffset,\n)=>{\n\tlet buf = await reso.get(strbufreso)\n\teditrp.drawIndexedIndirect(buf,offset,)\n}\n\n\nlet wasm_di = async ( //drawIndirect\n\tstrbufreso,\n\toffset,\n)=>{\n\tlet buf = await reso.get(strbufreso)\n\teditrp.drawIndirect(buf,offset,)\n}\n\n\nlet wasm_draw = async ( //draw\n\tvertexCount,\n\tinstanceCount,\n\tfirstVertex,\n\tfirstInstance,\n)=>{\n\t//await 0 //nilai sembarang\n\teditrp.draw(\n\t\tvertexCount,\n\t\tinstanceCount,\n\t\tfirstVertex,\n\t\tfirstInstance,\n\t)\n}\n\n\nlet wasm_end = async ( //end\n)=>{\n\t//await 0 //nilai sembarang\n\teditrp.end()\n\teditrp = 'bekas '+editrp.label\n}\n\n\n/*========\nlet wasm_ = async ( //\n)=>{\n\tlet = await reso.get()\n\teditrp.()\n}\n--------*/\n\n",
+			"text": "\nlet editrp = 'kosonggg g gg'\n\n\n\nlet wasm_sp = async ( //setPipeline\n\tstrpipereso\n)=>{\n\tlet pipe = await reso.get(strpipereso)\n\teditrp.setPipeline(pipe)\n}\n\n\nlet wasm_svb = async ( //setVertexBuffer\n\tslot,\n\tstrbufreso,\n\toffset,\n\tsize,\n)=>{\n\tlet buf = await reso.get(strbufreso)\n\tif(size < 0){\n\t\teditrp.setVertexBuffer(slot,buf,offset,)\n\t}else{\n\t\teditrp.setVertexBuffer(slot,buf,offset,size,)\n\t}\n}\n\n\nlet wasm_sib = async ( //setIndexBuffer\n\tstrbufreso,\n\tindexFormat,\n\toffset,\n\tsize,\n)=>{\n\tlet buf = await reso.get(strbufreso)\n\tif(size < 0){\n\t\teditrp.setIndexBuffer(buf,indexFormat,offset,)\n\t}else{\n\t\teditrp.setIndexBuffer(buf,indexFormat,offset,size,)\n\t}\n}\n\n\nlet wasm_sbg = async ( //setBindGroup\n\tindex,\n\tstrbgreso,\n)=>{\n\tlet bg = await reso.get(strbgreso)\n\teditrp.setBindGroup(index,bg,)\n}\n\n\nlet wasm_dii = async ( //drawIndexedIndirect\n\tstrbufreso,\n\toffset,\n)=>{\n\tlet buf = await reso.get(strbufreso)\n\teditrp.drawIndexedIndirect(buf,offset,)\n}\n\n\nlet wasm_di = async ( //drawIndirect\n\tstrbufreso,\n\toffset,\n)=>{\n\tlet buf = await reso.get(strbufreso)\n\teditrp.drawIndirect?.(buf,offset,) //sampe sini\n}\n\n\nlet wasm_draw = async ( //draw\n\tvertexCount,\n\tinstanceCount,\n\tfirstVertex,\n\tfirstInstance,\n)=>{\n\t//await 0 //nilai sembarang\n\teditrp.draw(\n\t\tvertexCount,\n\t\tinstanceCount,\n\t\tfirstVertex,\n\t\tfirstInstance,\n\t)\n}\n\n\nlet wasm_end = async ( //end\n)=>{\n\t//await 0 //nilai sembarang\n\teditrp.end()\n\teditrp = 'bekas '+editrp.label\n}\n\n\n/*========\nlet wasm_ = async ( //\n)=>{\n\tlet = await reso.get()\n\teditrp.()\n}\n--------*/\n\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -130,7 +130,7 @@
 			]
 		},
 		{
-			"text": "\n//audio sekali play\nlet wasm_auplay = async straucon=>{\n\tlet aucon = await reso.get(straucon)\n\tlet out = []\n\tfor(let con of aucon){\n\t\tlet bufsrc = con.buf //con.src\n\t\tlet when = +con.start\n\t\tlet whenglo = when +aucx.currentTime\n\t\tlet vol = +con.volume\n\t\tlet buftrimstart = +con.buftrimstart\n\t\tlet buftrimend = con.buftrimend\n\t\t\tbuftrimend = (buftrimend === 'src') ?bufsrc.duration :+buftrimend\n\t\tlet dur = con.bufduration\n\t\t\tdur = (dur === 'trimmed') ?(buftrimend-buftrimstart) :dur //buffer time\n\t\t\tdur = (dur === 'endless') ?'endless' :+dur //buffer time\n\t\tlet bufscale = +con.bufscale\n\t\t\n\t\tlet source = aucx.createBufferSource()\n\t\tout.push(source)\n\t\tsource.buffer = bufsrc\n\t\tsource.loop = true\n\t\tsource.playbackRate.value = 1/bufscale;\n\t\tconst gainNode = aucx.createGain();\t\tgainNode.gain.value = vol\n\n\t\tsource.connect(gainNode).connect(aucx.destination)\n\t\tlet curtime = aucx.currentTime\n\t\tlet whencx = curtime +when\n\t\t\n\t\tsource.loopStart = buftrimstart\n\t\tsource.loopEnd = buftrimend\n\t\tlet durcx = dur\n\t\t\n\t\tlet offsetlok = buftrimstart\n\t\t\n\t\tsource.start(whencx,offsetlok,)\n\t\tif(dur !== 'endless'){\n\t\t\tdurcx *= bufscale\n\t\t\tsource.stop(whencx+durcx)\n\t\t}\n\t}\n\treturn out\n}\n\nlet wasm_austop = async aucon=>{\n\tlih(aucon)\n\tfor(let con of await aucon){\n\t\tcon.stop()\n\t}\n}\n\n//env audio\nlet wasm_envab = async strreso=>{ //set _aucon audio buffer\n\tsuara.setAudioData(await reso.get(strreso))\n}\n",
+			"text": "\n//audio sekali play\nlet wasm_fxauplay = async straucon=>{\n\tlet aucon = await reso.get(straucon)\n\tlet out = []\n\tfor(let con of aucon){\n\t\tlet bufsrc = con.buf //con.src\n\t\tlet when = +con.start\n\t\tlet whenglo = when +aucx.currentTime\n\t\tlet vol = +con.volume\n\t\tlet buftrimstart = +con.buftrimstart\n\t\tlet buftrimend = con.buftrimend\n\t\t\tbuftrimend = (buftrimend === 'src') ?bufsrc.duration :+buftrimend\n\t\tlet dur = con.bufduration\n\t\t\tdur = (dur === 'trimmed') ?(buftrimend-buftrimstart) :dur //buffer time\n\t\t\tdur = (dur === 'endless') ?'endless' :+dur //buffer time\n\t\tlet bufscale = +con.bufscale\n\t\t\n\t\tlet source = aucx.createBufferSource()\n\t\tsource.buffer = bufsrc\n\t\tsource.loop = true\n\t\tsource.playbackRate.value = 1/bufscale;\n\t\t\n\t\tconst gain_vol = aucx.createGain();\n\t\tconst gainL = aucx.createGain();\n\t\tconst gainR = aucx.createGain();\n\t\tgain_vol.gain.value = vol\n\t\t//source.connect(gain_vol).connect(aucx.destination)\n\t\tsource.connect(gain_vol)\n\t\tgain_vol.connect(gainL).connect(LRmerger, 0, 0,)\n\t\tgain_vol.connect(gainR).connect(LRmerger, 0, 1,)\n\t\t\n\t\tout.push({\n\t\t\tsrc:source,\n\t\t\tgain_vol,\n\t\t\tgainL,\n\t\t\tgainR,\n\t\t})\n\t\t\n\t\tlet curtime = aucx.currentTime\n\t\tlet whencx = curtime +when\n\t\t\n\t\tsource.loopStart = buftrimstart\n\t\tsource.loopEnd = buftrimend\n\t\tlet durcx = dur\n\t\t\n\t\tlet offsetlok = buftrimstart\n\t\t\n\t\tsource.start(whencx,offsetlok,)\n\t\tif(dur !== 'endless'){\n\t\t\tdurcx *= bufscale\n\t\t\tsource.stop(whencx+durcx)\n\t\t\tsource.addEventListener('ended',e=>{\n\t\t\t\tgain_vol.disconnect()\n\t\t\t\tgainL.disconnect()\n\t\t\t\tgainR.disconnect()\n\t\t\t},)\n\t\t}\n\t}\n\treturn out\n}\n\nlet wasm_fxaustop = async aucon=>{\n\tfor(let con of await aucon){\n\t\tcon.src.stop()\n\t\tcon.gain_vol.disconnect()\n\t\tcon.gainL.disconnect()\n\t\tcon.gainR.disconnect()\n\t}\n}\n\nlet wasm_fxausetLR = (aucon,i,L,R,)=>{\n\taucon[i].gainL.gain.value = L\n\taucon[i].gainR.gain.value = R\n}\n\n\n\n//env audio\nlet wasm_envad = async strreso=>{ //set _aucon audio buffer\n\tsuara.setAudioData(await reso.get(strreso))\n}\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -145,7 +145,7 @@
 			]
 		},
 		{
-			"text": "\n//lainlain\nlet wasm_wb = async (\n\tbuffer, //str\n\tbufferOffset, //number byte\n\tdata, //str\n\tdataOffset, //number byte\n\tsize, //number byte\n)=>{\n\tbuffer = await reso.get(buffer)\n\tdata = (await reso.get(data)).buffer\n\n\t\n\tdv.queue.writeBuffer(\n\t\tbuffer,\n\t\tbufferOffset,\n\t\tdata,\n\t\tdataOffset,\n\t\tsize,\n\t)\n}\n\nlet wasm_getreso = str=>{\n\treturn reso.get(str)\n}\n",
+			"text": "\n//lainlain\nlet wasm_wb = async (\n\tbuffer, //str\n\tbufferOffset, //number byte\n\tdata, //str\n\tdataOffset, //number byte\n\tsize, //number byte\n)=>{\n\tbuffer = await reso.get(buffer)\n\tdata = (await reso.get(data)).buffer\n\n\t\n\tdv.queue.writeBuffer(\n\t\tbuffer,\n\t\tbufferOffset,\n\t\tdata,\n\t\tdataOffset,\n\t\tsize,\n\t)\n}\n\nlet wasm_getreso = str=>{\n\treturn reso.get(str)\n}\n\nlet wasm_rct = //resize canvas texture\n//window.resize_canvas = \nasync (w,h,)=>{\n\tcanv3d.width = w\n\tcanv3d.height = h\n\t\n\tfor(let map0 of resizecanvarr){\n\tfor(let [key, info] of map0.entries()){\n\t\tlet gpuobj = \n\t\t\tcreate_gpu_object\n\t\t\t.get(info.type)\n\t\t\t?.(info,key,)\n\t\tawait gpuobj\n\t\treso.set(key,gpuobj,)\n\t}\n\t}\n}\n\n\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -160,7 +160,7 @@
 			]
 		},
 		{
-			"text": "\nlet canv3d = null\nlet cx3d = null\n\nlet pl4_4 = null\n\nlet presentationFormat = navigator.gpu.getPreferredCanvasFormat()\n\nlet aucx = new AudioContext()\nlet suara = null\n\nlet reso = new Map()\nlet tunggureso = new Deferred()\n\n\n\n\n\n\n/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-\nsampe sini:\n1. edit envaudio di wasm\n\n\n\n\n=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\*/\n\n\n\n\n\n\nlet resosrc = null\nlet loadreslinks = async (reslinkslink)=>{\n\t//+++++++++++++++ resource +++++++++++++++\n\t\n\t//let reslinkslink = new URLSearchParams(location.search).get('reslinks')\n\treslinkslink = new URL(reslinkslink,location.href,)\n\tresosrc = fetch(reslinkslink)\n\t.then(r=>r.text())\n\t\n\t//fetch links\n\t.then(str=>Promise.all(\n\t\tstr\n\t\t.split(strnewline)\n\t\t.map(aa=>{\n\t\t\tlet urlini = new URL(aa,reslinkslink,)\n\t\t\treturn fetch(urlini)\n\t\t\t.then(r=>r.json())\n\t\t\t.then(out=>({\n\t\t\t\tout,\n\t\t\t\tparenturl:urlini,\n\t\t\t}))\n\t\t})\n\t))\n\t.then(arr=>{\n\t\tfor(let {out,parenturl,} of arr){ for(let k in out){\n\t\t\tlet o = out[k]\n\t\t\to.parenturl = parenturl\n\t\t}}\n\t\treturn Object.assign({},...arr.map(aa=>aa.out),)\n\t})\n}\n\n\n\n\n\n\nlet wasmsrc = null\nlet loadwasmlinks = async (wasmlinkslink)=>{\n\t//+++++++++++++++ wasm +++++++++++++++\n\t\n\t//let wasmlinkslink = new URLSearchParams(location.search).get('wasmlinks')\n\twasmlinkslink = new URL(wasmlinkslink,location.href,)\n\twasmsrc = fetch(wasmlinkslink)\n\t.then(r=>r.text())\n\t\n\t//fetch links\n\t.then(async str=>{\n\t\tlet strconst = {\n\t\t\tbuiltins: [\"js-string\"], // Enable JavaScript string builtins\n\t\t\timportedStringConstants: \"myStrings\", // Enable imported global string constants\n\t\t}\n\t\t\n\t\tlih('tunggu reso')\n\t\tlet impobj = {\n\t\tmain:{\n\t\t\tgetreso:wasm_getreso,\n\t\t\tlihat:lih,\n\t\t\tauplay:wasm_auplay,\n\t\t\taustop:wasm_austop,\n\t\t\twb:wasm_wb,\n\t\t\tenvab:wasm_envab,\n\t\t\tenvauplay:()=>suara.play(),\n\t\t\tenvaupause:()=>suara.pause(),\n\t\t\tenvausetTime:()=>suara.setCurTime(),\n\t\t\tenvaugetTime:()=>suara.getCurTime(),\n\t\t\tenvausetSpeed:()=>suara.setspeed(),\n\t\t\tenvaugetSpeed:()=>suara.getspeed(),\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\tcce:(...args)=>enta(wasm_cce, ...args),\n\t\t\t\tbrp:(...args)=>enta(wasm_brp, ...args),\n\t\t\t\t\tsp:(...args)=>enta(wasm_sp, ...args),\n\t\t\t\t\tsvb:(...args)=>enta(wasm_svb, ...args),\n\t\t\t\t\tsib:(...args)=>enta(wasm_sib, ...args),\n\t\t\t\t\tsbg:(...args)=>enta(wasm_sbg, ...args),\n\t\t\t\t\tdraw:(...args)=>enta(wasm_draw, ...args),\n\t\t\t\t\tdi:(...args)=>enta(wasm_di, ...args),\n\t\t\t\t\tdii:(...args)=>enta(wasm_dii, ...args),\n\t\t\t\t\tend:(...args)=>enta(wasm_end, ...args),\n\t\t\t\t//clear buffer blum bikin\n\t\t\t\t//copy buf to buf blum bikin\n\t\t\t\tcttt:(...args)=>enta(wasm_cttt, ...args),\n\t\t\t\tfinish:(...args)=>enta(wasm_finish, ...args),\n\t\t\tsubmit:wasm_submit,\n\t\t\t\t\n\t\t},\n\t\tmemory:(await tunggureso).memorydict,\n\t\ttable:(await tunggureso).tabledict,\n\t\t}\n\t\tlih('reso loaded')\n\t\t\n\t\t\n\t\t\n\t\treturn Promise.all(\n\t\tstr\n\t\t.split(strnewline)\n\t\t.map(aa=>{\n\t\t\tlet urlini = new URL(aa,wasmlinkslink,)\n\t\t\treturn WebAssembly.instantiateStreaming(\n\t\t\t\tfetch(urlini),\n\t\t\t\timpobj,\n\t\t\t\tstrconst,\n\t\t\t)\n\t\t})\n\t\t\n\t\t\n\t\t\n\t)})\n}\n\n\n\nlet dv = navigator.gpu.requestAdapter()\n.then(adap=>adap.requestDevice({\n\trequiredFeatures: ['indirect-first-instance'], // Enable the feature here\n}))\n\n\n\nlet cvd = {label:'canvas color view '+Math.random()}//canvas view descriptor\n\nlet strnewline = /\\r\\n|\\r|\\n/\n",
+			"text": "\nlet canv3d = null\nlet cx3d = null\n\nlet pl5 = null\n\nlet presentationFormat = navigator.gpu.getPreferredCanvasFormat()\n\nlet aucx = new AudioContext()\nlet LRmerger = aucx.createChannelMerger(2)\nLRmerger.connect(aucx.destination)\nlet suara = null\n\nlet reso = new Map()\nlet tunggureso = new Deferred()\n\nlet resizecanvarr = [ //canvas size updates texture, texview, bind\n\tnew Map(), //texture\n\tnew Map(), //texture view\n\tnew Map(), //bind\n\tnew Map(), //render pass\n]\n\n\n\n\n\n\n/*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-\nsampe sini:\n\n\n\n\n=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\=\\*/\n\n\n\n\n\n\nlet resosrc = null\nlet loadreslinks = async (reslinkslink)=>{\n\t//+++++++++++++++ resource +++++++++++++++\n\t\n\treslinkslink = new URL(reslinkslink,location.href,)\n\tresosrc = fetch(reslinkslink)\n\t.then(r=>r.text())\n\t\n\t//fetch links\n\t.then(str=>Promise.all(\n\t\tstr\n\t\t.split(strnewline)\n\t\t.map(aa=>{\n\t\t\tlet urlini = new URL(aa,reslinkslink,)\n\t\t\treturn fetch(urlini)\n\t\t\t.then(r=>r.json())\n\t\t\t.then(out=>({\n\t\t\t\tout,\n\t\t\t\tparenturl:urlini,\n\t\t\t}))\n\t\t})\n\t))\n\t.then(arr=>{\n\t\tfor(let {out,parenturl,} of arr){ for(let k in out){\n\t\t\tlet o = out[k]\n\t\t\to.parenturl = parenturl\n\t\t}}\n\t\treturn Object.assign({},...arr.map(aa=>aa.out),)\n\t})\n}\n\n\n\n\n\n\nlet wasmsrc = null\nlet loadwasmlinks = async (wasmlinkslink)=>{\n\t//+++++++++++++++ wasm +++++++++++++++\n\t\n\twasmlinkslink = new URL(wasmlinkslink,location.href,)\n\twasmsrc = fetch(wasmlinkslink)\n\t.then(r=>r.text())\n\t\n\t//fetch links\n\t.then(async str=>{\n\t\tlet strconst = {\n\t\t\tbuiltins: [\"js-string\"], // Enable JavaScript string builtins\n\t\t\timportedStringConstants: \"myStrings\", // Enable imported global string constants\n\t\t}\n\t\t\n\t\tlih('tunggu reso')\n\t\tlet impobj = {\n\t\tmain:{\n\t\t\tgetreso:wasm_getreso,\n\t\t\trct:wasm_rct,\n\t\t\tlihat:lih,\n\t\t\tfxauplay:wasm_fxauplay,\n\t\t\tfxaustop:wasm_fxaustop,\n\t\t\tfxausetLR:wasm_fxausetLR,\n\t\t\twb:wasm_wb,\n\t\t\tenvad:wasm_envad,\n\t\t\tenvauplay:()=>suara.play(),\n\t\t\tenvaupause:()=>suara.pause(),\n\t\t\tenvausetLR:(i,L,R,)=>suara.setLR(i,L,R,),\n\t\t\tenvausetTime:t=>suara.setCurTime(t),\n\t\t\tenvaugetTime:()=>suara.getCurTime(),\n\t\t\tenvausetSpeed:s=>suara.setspeed(s),\n\t\t\tenvaugetSpeed:()=>suara.getspeed(),\n\t\t\tenvaucount:()=>suara.count(),\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\tcce:(...args)=>enta(wasm_cce, ...args),\n\t\t\t\tbrp:(...args)=>enta(wasm_brp, ...args),\n\t\t\t\t\tsp:(...args)=>enta(wasm_sp, ...args),\n\t\t\t\t\tsvb:(...args)=>enta(wasm_svb, ...args),\n\t\t\t\t\tsib:(...args)=>enta(wasm_sib, ...args),\n\t\t\t\t\tsbg:(...args)=>enta(wasm_sbg, ...args),\n\t\t\t\t\tdraw:(...args)=>enta(wasm_draw, ...args),\n\t\t\t\t\tdi:(...args)=>enta(wasm_di, ...args),\n\t\t\t\t\tdii:(...args)=>enta(wasm_dii, ...args),\n\t\t\t\t\tend:(...args)=>enta(wasm_end, ...args),\n\t\t\t\t//clear buffer blum bikin\n\t\t\t\t//copy buf to buf blum bikin\n\t\t\t\tcttt:(...args)=>enta(wasm_cttt, ...args),\n\t\t\t\tfinish:(...args)=>enta(wasm_finish, ...args),\n\t\t\tsubmit:wasm_submit,\n\t\t\t\t\n\t\t},\n\t\tmemory:(await tunggureso).memorydict,\n\t\ttable:(await tunggureso).tabledict,\n\t\tglobal:(await tunggureso).globaldict,\n\t\t}\n\t\tlih('reso loaded')\n\t\t\n\t\t\n\t\t\n\t\treturn Promise.all(\n\t\tstr\n\t\t.split(strnewline)\n\t\t.map(aa=>{\n\t\t\tlet urlini = new URL(aa,wasmlinkslink,)\n\t\t\treturn WebAssembly.instantiateStreaming(\n\t\t\t\tfetch(urlini),\n\t\t\t\timpobj,\n\t\t\t\tstrconst,\n\t\t\t)\n\t\t})\n\t\t\n\t\t\n\t\t\n\t)})\n}\n\n\n\nlet dv = navigator.gpu.requestAdapter()\n.then(adap=>adap.requestDevice({\n\trequiredFeatures: ['indirect-first-instance'], // Enable the feature here\n}))\n\n\n\nlet cvd = {label:'canvas color view '+Math.random()}//canvas view descriptor\n\nlet strnewline = /\\r\\n|\\r|\\n/\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -175,7 +175,7 @@
 			]
 		},
 		{
-			"text": "\nlet _aucon = class {\n\t#speed\n\tconstructor() { //audioData\n\t\tlet curtime = aucx.currentTime\n\t\tthis.audioContext = aucx;\n\t\tthis.audioData = []; //audioData;\n\t\t//this.audioDataList = new Map();\n\t\tthis.sources = [];\n\t\tthis.gainNodes = [];\n\t\tthis.isPlaying = false;\n\t\tthis.#speed = 1;\n\t\tthis.startTime = curtime;// global\n\t\tthis.curtime = 0;// global, ga realtime\n\t\tthis.lastseek = 0;// local\n\t\tthis.stopTime = curtime;// global\n\t\t\n\t\t//sekali play\n\t\t\n\t}\n\n\t#createSource(audioBuffer, volume, newspeed,) {//loop,\n\t\tconst source = this.audioContext.createBufferSource();\n\t\tsource.buffer = audioBuffer;\n\t\tsource.playbackRate.value = newspeed;\n\t\tsource.loop = true\n\n\t\tconst gainNode = this.audioContext.createGain();\n\t\tgainNode.gain.value = volume;\n\n\t\tsource.connect(gainNode).connect(this.audioContext.destination);\n\n\t\treturn { source, gainNode };\n\t}\n\n\tstart_at(seek,newspeed,) {\n\t\tif (this.isPlaying) return;\n\t\tthis.isPlaying = true;\n\t\t\n\t\tlet curtime = this.audioContext.currentTime\n\t\t\n\t\tthis.audioData.forEach(({\n\t\t\t\n\t\t\t//src:bufsrc,\n\t\t\tbuf:bufsrc,\n\t\t\tstart:when,\n\t\t\tbufduration,\n\t\t\tvolume,\n\t\t\t\n\t\t\tbuftrimstart,\n\t\t\tbuftrimend, // < 0, bufsrc.duration\n\t\t\tbufscale,\n\t\t\t\n\t\t},i,) => {\n\t\t\twhen *= 1\n\t\t\tvolume *= 1\n\t\t\t\n\t\t\tbuftrimstart *= 1\n\t\t\tbuftrimend = (buftrimend === 'src') ?bufsrc.duration :+buftrimend\n\t\t\t\n\t\t\tbufduration = (bufduration === 'trimmed') ?(buftrimend-buftrimstart) :bufduration //buffer time\n\t\t\tbufduration = (bufduration === 'endless') ?'endless' :+bufduration //buffer time\n\t\t\t\n\t\t\tbufscale *= 1\n\t\t\t/*\n\t\t\tcara pakai start()\n\t\t\t\twhen:contexttime,\n\t\t\t\toffset:sourcetime,\n\t\t\t*/\n\t\t\t\n\t\t\tconst { source, gainNode } = this.#createSource(bufsrc, volume, newspeed/bufscale,); //COBA1\n\t\t\t\n\t\t\tlet whenglo = when\n\t\t\tlet whencx = Math.max(0,curtime +(whenglo-seek)/newspeed,)\n\t\t\t\n\t\t\tsource.loopStart = buftrimstart\n\t\t\tsource.loopEnd = buftrimend //(buftrimend < 0)?bufsrc.duration:buftrimend\n\t\t\tlet durcx = bufduration //(bufduration < 0)?bufsrc.duration:bufduration\n\t\t\t\n\t\t\tlet offsetlok = Math.max(0,-whenglo+seek,)/bufscale\n\t\t\toffsetlok = offsetlok % (source.loopEnd-source.loopStart)\n\t\t\toffsetlok += buftrimstart\n\t\t\t\n\t\t\tsource.start(whencx,offsetlok,) //parameter start() duration tidak jelas, ganti pake stop()\n\t\t\tif(bufduration !== 'endless'){\n\t\t\t\tdurcx *= 1/newspeed*bufscale\n\t\t\t\tsource.stop(whencx+durcx)\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t//\n\t\t\tthis.sources.push(source);\n\t\t\tthis.gainNodes.push(gainNode);\n\t\t\t\n\t\t});\n\t\t//akhir\n\t\tthis.#speed = newspeed\n\t\tthis.startTime = curtime\n\t\tthis.lastseek = seek\n\n\t}\n\n\tdestroy() {\n\t\tif (!this.isPlaying) return\n\t\tthis.curtime = this.getCurTime()\n\t\tthis.isPlaying = false;\n\t\tthis.stopTime = this.audioContext.currentTime\n\t\tthis.sources.forEach((source) => {\n\t\t\tsource.stop();\n\t\t\tsource.disconnect();\n\t\t});\n\t\tthis.gainNodes.forEach((gainNode) => gainNode.disconnect());\n\t\tthis.sources = [];\n\t\tthis.gainNodes = [];\n\t}\n\t\n\t//methods\n\tsetAudioData(cont){\n\t\tthis.audioData = cont\n\t\tif(this.isPlaying){\n\t\t\tthis.destroy()\n\t\t\tthis.start_at(this.curtime,this.#speed,)\n\t\t}\n\t}\n\tplay(){\n\t\t//\"this.curtime\" beda dengan \"curtime\"\n\t\tthis.start_at(this.curtime,this.#speed,)\n\t}\n\tpause(){\n\t\tthis.destroy()\n\t}\n\tsetCurTime(time){\n\t\ttime = Math.max(0,time,)\n\t\tif(this.isPlaying){\n\t\t\tthis.destroy()\n\t\t\tthis.start_at(time,this.#speed,)\n\t\t}else{\n\t\t\tthis.curtime = time\n\t\t}\n\t}\n\tsetspeed(speed){\n\t\tspeed = Math.max(0,speed,)\n\t\tif(this.isPlaying){\n\t\t\tthis.destroy()\n\t\t\tthis.start_at(this.curtime,speed,)\n\t\t}else{\n\t\t\tthis.#speed = speed\n\t\t}\n\t}\n\t\n\tgetCurTime() {//realtime\n\t\tlet curtime = this.audioContext.currentTime\n\t\treturn this.isPlaying\n\t\t? (\n\t\t\t(this.isPlaying ? curtime : this.stopTime)\n\t\t\t- this.startTime\n\t\t)*this.#speed + this.lastseek\n\t\t: this.curtime\n\t}\n\tgetspeed(){\n\t\treturn this.#speed\n\t}\n};\n\nsuara = new _aucon()\n",
+			"text": "\nlet _aucon = class {\n\t#speed\n\tconstructor() { //audioData\n\t\tlet curtime = aucx.currentTime\n\t\tthis.audioContext = aucx;\n\t\tthis.audioData = []; //audioData;\n\t\tthis.sources = [];\n\t\tthis.gainpanNodes = [];\n\t\tthis.isPlaying = false;\n\t\tthis.#speed = 1;\n\t\tthis.startTime = curtime;// global\n\t\tthis.curtime = 0;// global, ga realtime\n\t\tthis.lastseek = 0;// local\n\t\tthis.stopTime = curtime;// global\n\t\t\n\t\t\n\t}\n\n\t#createSource(audioBuffer, volume, newspeed,gainpan,/*x,y,z,*/) {//loop,\n\t\tconst source = this.audioContext.createBufferSource();\n\t\tsource.buffer = audioBuffer;\n\t\tsource.playbackRate.value = newspeed;\n\t\tsource.loop = true\n\t\t\n\t\tgainpan.gain_vol.gain.value = volume\n\n\t\tsource.connect(gainpan.gain_vol)\n\n\t\treturn source;\n\t}\n\n\tstart_at(seek,newspeed,) {\n\t\tif (this.isPlaying) return;\n\t\tthis.isPlaying = true;\n\t\t\n\t\tlet curtime = this.audioContext.currentTime\n\t\t\n\t\tthis.audioData.forEach(({\n\t\t\t\n\t\t\t//src:bufsrc,\n\t\t\tbuf:bufsrc,\n\t\t\tstart:when,\n\t\t\tbufduration,\n\t\t\tvolume,\n\t\t\t\n\t\t\tbuftrimstart,\n\t\t\tbuftrimend, // < 0, bufsrc.duration\n\t\t\tbufscale,\n\t\t\t\n\t\t\t//x,y,z,\n\t\t\t\n\t\t},i,) => {\n\t\t\twhen *= 1\n\t\t\tvolume *= 1\n\t\t\t\n\t\t\tbuftrimstart *= 1\n\t\t\tbuftrimend = (buftrimend === 'src') ?bufsrc.duration :+buftrimend\n\t\t\t\n\t\t\tbufduration = (bufduration === 'trimmed') ?(buftrimend-buftrimstart) :bufduration //buffer time\n\t\t\tbufduration = (bufduration === 'endless') ?'endless' :+bufduration //buffer time\n\t\t\t\n\t\t\tbufscale *= 1\n\t\t\t/*\n\t\t\tcara pakai start()\n\t\t\t\twhen:contexttime,\n\t\t\t\toffset:sourcetime,\n\t\t\t*/\n\t\t\t\n\t\t\tconst source = this.#createSource(\n\t\t\t\tbufsrc,\n\t\t\t\tvolume,\n\t\t\t\tnewspeed/bufscale,\n\t\t\t\tthis.gainpanNodes[i],\n\t\t\t\t\n\t\t\t\t//x,y,z,\n\t\t\t)\n\t\t\t\n\t\t\tlet whenglo = when\n\t\t\tlet whencx = Math.max(0,curtime +(whenglo-seek)/newspeed,)\n\t\t\t\n\t\t\tsource.loopStart = buftrimstart\n\t\t\tsource.loopEnd = buftrimend //(buftrimend < 0)?bufsrc.duration:buftrimend\n\t\t\tlet durcx = bufduration //(bufduration < 0)?bufsrc.duration:bufduration\n\t\t\t\n\t\t\tlet offsetlok = Math.max(0,-whenglo+seek,)/bufscale\n\t\t\toffsetlok = offsetlok % (source.loopEnd-source.loopStart)\n\t\t\toffsetlok += buftrimstart\n\t\t\t\n\t\t\tsource.start(whencx,offsetlok,) //parameter start() duration tidak jelas, ganti pake stop()\n\t\t\tif(bufduration !== 'endless'){\n\t\t\t\tdurcx *= 1/newspeed*bufscale\n\t\t\t\tsource.stop(whencx+durcx)\n\t\t\t}\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t\n\t\t\t//\n\t\t\tthis.sources.push(source);\n\t\t\t\n\t\t});\n\t\t//akhir\n\t\tthis.#speed = newspeed\n\t\tthis.startTime = curtime\n\t\tthis.lastseek = seek\n\n\t}\n\n\tdestroy() {\n\t\tif (!this.isPlaying) return\n\t\tthis.curtime = this.getCurTime()\n\t\tthis.isPlaying = false;\n\t\tthis.stopTime = this.audioContext.currentTime\n\t\tthis.sources.forEach((source) => {\n\t\t\tsource.stop();\n\t\t\tsource.disconnect();\n\t\t});\n\t\tthis.sources = [];\n\t}\n\t\n\t//methods\n\tsetAudioData(cont){\n\t\tthis.audioData = cont\n\t\tfor(let gainpan of this.gainpanNodes){\n\t\t\tgainpan.gain_vol.disconnect()\n\t\t\tgainpan.gainL.disconnect()\n\t\t\tgainpan.gainR.disconnect()\n\t\t}\n\t\tthis.gainpanNodes = []\n\t\tfor(let val of cont){\n\t\t\t\n\t\t\tlet gain_vol = this.audioContext.createGain()\n\t\t\tlet gainL = this.audioContext.createGain()\n\t\t\tlet gainR = this.audioContext.createGain()\n\t\t\t\n\t\t\tgain_vol.connect(gainL).connect(LRmerger, 0, 0,)\n\t\t\tgain_vol.connect(gainR).connect(LRmerger, 0, 1,)\n\t\t\t\n\t\t\t\n\t\t\tthis.gainpanNodes.push({\n\t\t\t\tgain_vol,\n\t\t\t\tgainL,\n\t\t\t\tgainR,\n\t\t\t})\n\t\t}\n\t\tif(this.isPlaying){\n\t\t\tthis.destroy()\n\t\t\tthis.start_at(this.curtime,this.#speed,)\n\t\t}\n\t}\n\tplay(){\n\t\t//\"this.curtime\" beda dengan \"curtime\"\n\t\tthis.start_at(this.curtime,this.#speed,)\n\t}\n\tpause(){\n\t\tthis.destroy()\n\t}\n\tsetCurTime(time){\n\t\ttime = Math.max(0,time,)\n\t\tif(this.isPlaying){\n\t\t\tthis.destroy()\n\t\t\tthis.start_at(time,this.#speed,)\n\t\t}else{\n\t\t\tthis.curtime = time\n\t\t}\n\t}\n\tsetspeed(speed){\n\t\tspeed = Math.max(0,speed,)\n\t\tif(this.isPlaying){\n\t\t\tthis.destroy()\n\t\t\tthis.start_at(this.curtime,speed,)\n\t\t}else{\n\t\t\tthis.#speed = speed\n\t\t}\n\t}\n/*========\n\tsetpos(i,x,y,z,w,){ // i -->> index cont\n\t\t\n\t\tx *= w\n\t\ty *= w\n\t\tz *= w\n\t\tlet gainR = this.gainpanNodes[i].gainR\n\t\tlet gainL = this.gainpanNodes[i].gainL\n\t\tgainL.gain.value = 1/(distSq3(x,y,z,-1,0,0,)+1)\n\t\tgainR.gain.value = 1/(distSq3(x,y,z,1,0,0,)+1)\n\t}\n\tgetinitpos(i){ // i -->> index cont\n\t\tlet cont = this.audioData[i]\n\t\treturn [cont.x,cont.y,cont.z,cont.r,]\n\t}\n--------*/\n\tsetLR(i,L,R,){ // volume L & R\n\t\tlet gainLR =  this.gainpanNodes[i]\n\t\tgainLR.gainL.gain.value = L\n\t\tgainLR.gainR.gain.value = R\n\t}\n\t\n\tgetCurTime() {//realtime\n\t\tlet curtime = this.audioContext.currentTime\n\t\treturn this.isPlaying\n\t\t? (\n\t\t\t(this.isPlaying ? curtime : this.stopTime)\n\t\t\t- this.startTime\n\t\t)*this.#speed + this.lastseek\n\t\t: this.curtime\n\t}\n\tgetspeed(){\n\t\treturn this.#speed\n\t}\n\tcount(){\n\t\treturn this.audioData.length\n\t}\n};\n\nsuara = new _aucon()\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -200,6 +200,36 @@
 					"r": "255",
 					"g": "155",
 					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet distSq3 = (\n\tx0,y0,z0,\n\tx1,y1,z1,\n)=>{\n\tconst dx = x1 - x0;\n\tconst dy = y1 - y0;\n\tconst dz = z1 - z0;\n\treturn dx * dx + dy * dy + dz * dz;\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n// https://chatgpt.com/c/6997be37-6ee8-8321-b99a-0c816d277bfa\n\nlet fstost = (buffer, offset, nobj, layout,) => { //storage_struct\n\n\tconst align16 = v => (v + 15) & ~15\n\n\tconst typeInfo = {\n\t\t'mat4x4f': { size: 64, ArrayType: Float32Array, length: 16 },\n\t\t'vec4f':   { size: 16, ArrayType: Float32Array, length: 4  },\n\t\t'vec3f':   { size: 16, ArrayType: Float32Array, length: 3  }, // padded to 16\n\t\t'vec2f':   { size: 8,  ArrayType: Float32Array, length: 2  },\n\t\t'f32':\t { size: 4,  ArrayType: Float32Array, length: 1  },\n\t\t'u32':\t { size: 4,  ArrayType: Uint32Array,  length: 1  },\n\t\t'i32':\t { size: 4,  ArrayType: Int32Array,   length: 1  },\n\t}\n\n\t// compute per-instance layout\n\tlet fields = []\n\tlet stride = 0\n\n\tfor (let key in layout) {\n\t\tconst info = typeInfo[layout[key]]\n\t\tif (!info) throw new Error('unknown type: ' + layout[key])\n\n\t\tstride = align16(stride)\n\t\tfields.push({\n\t\t\tkey,\n\t\t\toffset: stride,\n\t\t\t...info\n\t\t})\n\t\tstride += info.size\n\t}\n\n\tstride = align16(stride) // final struct alignment\n\n\t// build instances\n\tconst out = new Array(nobj)\n\n\tfor (let i = 0; i < nobj; i++) {\n\n\t\tconst base = offset + i * stride\n\t\tconst inst = {}\n\n\t\tfor (let f of fields) {\n\t\t\tinst[f.key] = new f.ArrayType(\n\t\t\t\tbuffer,\n\t\t\t\tbase + f.offset,\n\t\t\t\tf.length\n\t\t\t)\n\t\t}\n\n\t\tout[i] = inst\n\t}\n\n\treturn out\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "122",
 					"frame": "0"
 				}
 			]
@@ -254,6 +284,21 @@
 			]
 		},
 		{
+			"text": "\ncreate_gpu_object.set(\n'storage_struct',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\treturn fstost(\n\t\t(await reso.get(descr.array)).buffer,\n\t\tdescr.offset,\n\t\tdescr.length,\n\t\tdescr.layout,\n\t)\n},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
 			"text": "\ncreate_gpu_object.set(\n'object',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\treturn data\n},)\n",
 			"visible": true,
 			"time": "0",
@@ -263,6 +308,36 @@
 				{
 					"r": "255",
 					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\ncreate_gpu_object.set(\n'typed_array',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\tlet out = new window[descr.array_type](\n\t\t(await reso.get(data)).buffer,\n\t\tdescr.byte_offset,\n\t\tdescr.length,\n\t)\n\t\n\treturn out\n},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\ncreate_gpu_object.set(\n'wasm_global',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\tlet g = new WebAssembly.Global({\n\t\tvalue:descr.globaltype,\n\t\tmutable:descr.mutable,\n\t},data,)\n\t\n\treturn g //samoe sini\n},)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "222",
 					"b": "188",
 					"frame": "0"
 				}
@@ -284,7 +359,7 @@
 			]
 		},
 		{
-			"text": "\ncreate_gpu_object.set(\n'wat_memory',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\t\t\t\t//fgoi(key,'LOAD\\t\\t'+key,)\n\tlet arrbuf = await fetch(new URL(data,parenturl,))\n\tarrbuf = await arrbuf.arrayBuffer()\n\t\t\t\t//fgoi(key,'DONE '+key,)\n\tlet pages = Math.max(Math.ceil(arrbuf.byteLength / 65536),1,)\n\tlet mem = new WebAssembly.Memory({ initial: pages });\n\tnew Uint8Array(mem.buffer)\n\t.set(new Uint8Array(arrbuf), 0,)\n\t\n\treturn mem\n},)\n",
+			"text": "\ncreate_gpu_object.set(\n'wasm_memory',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\t\t\t\t//fgoi(key,'LOAD\\t\\t'+key,)\n\tlet arrbuf = await fetch(new URL(data,parenturl,))\n\tarrbuf = await arrbuf.arrayBuffer()\n\t\t\t\t//fgoi(key,'DONE '+key,)\n\tlet pages = Math.max(Math.ceil(arrbuf.byteLength / 65536),1,)\n\tlet mem = new WebAssembly.Memory({ initial: pages });\n\tnew Uint8Array(mem.buffer)\n\t.set(new Uint8Array(arrbuf), 0,)\n\t\n\treturn mem\n},)\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -314,7 +389,7 @@
 			]
 		},
 		{
-			"text": "\ncreate_gpu_object.set(\n'gpu_texture',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\tlet ibm = null //image bitmap\n\tif(data !== null){\n\t\tlet img = document.createElement(\"img\")\n\t\timg.crossOrigin = \"anonymous\" // Enable CORS\n\t\timg.src = new URL(data,parenturl,).toString()\n\t\t\t\t//fgoi(key,'LOAD\\t\\t'+key,)\n\t\tawait img.decode()\n\t\tibm = await createImageBitmap(img)\n\t\t\t\t//fgoi(key,'DONE '+key,)\n\t\t\n\t}\n\t\n\tif(pf.has(descr.format)){\n\t\tdescr.format = pf.get(descr.format)\n\t}\n\tif(texsize.has(descr.size)){\n\t\tdescr.size = texsize.get(descr.size)(ibm)\n\t}\n\tlet texini = dv.createTexture(descr)\n\t\n\tif(data !== null){\t\n\t\tdv.queue.copyExternalImageToTexture(\n\t\t\t{ source: ibm},\n\t\t\t{ texture: texini},\n\t\t\t[ibm.width, ibm.height],\n\t\t)\n\t}\n\t\n\treturn texini\n},)\n\n\n\nlet texsize = new Map()//texture size\ntexsize.set(\n\t'(canvas)',\n\t()=>canv3d, //ambil width & height doang\n)\ntexsize.set(\n\t'(image_data)',\n\tibm=>[ibm.width,ibm.height,], //ambil width & height doang\n)\n\n\nlet tex = new Map()//texture\ntex.set(\n\t'(context)',\n\t()=>cx3d.getCurrentTexture(), //context\n)\n",
+			"text": "\ncreate_gpu_object.set(\n'gpu_texture',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\tlet info = {\n\t\ttype,\n\t\tdescriptor:descr,\n\t\tdata,\n\t\tparenturl,\n\t}\n\tdescr = structuredClone(descr)\n\t\n\tlet ibm = null //image bitmap\n\tif(data !== null){\n\t\tlet img = document.createElement(\"img\")\n\t\timg.crossOrigin = \"anonymous\" // Enable CORS\n\t\timg.src = new URL(data,parenturl,).toString()\n\t\t\t\t//fgoi(key,'LOAD\\t\\t'+key,)\n\t\tawait img.decode()\n\t\tibm = await createImageBitmap(img)\n\t\t\t\t//fgoi(key,'DONE '+key,)\n\t\t\n\t}\n\t\n\tif(pf.has(descr.format)){\n\t\tdescr.format = pf.get(descr.format)\n\t}\n\tif(texsize.has(descr.size)){\n\t\tdescr.size = await texsize.get(descr.size)(ibm,key,info,)\n\t}\n\t\n\tlet texini = dv.createTexture(descr)\n\t\n\tif(data !== null){\t\n\t\tdv.queue.copyExternalImageToTexture(\n\t\t\t{ source: ibm},\n\t\t\t{ texture: texini},\n\t\t\t[ibm.width, ibm.height],\n\t\t)\n\t}\n\t\n\treturn texini\n},)\n\n\n\nlet texsize = new Map()//texture size\ntexsize.set(\n\t'(canvas)',\n\tasync (ibm,key,info,)=>{ //ambil width & height doang\n\t\tif(resizecanvarr[0].has(key)){\n\t\t\t;(await reso.get(key)).destroy()\n\t\t}else{\n\t\t\tresizecanvarr[0].set(key,info,)\n\t\t}\n\t\treturn canv3d\n\t},\n)\ntexsize.set(\n\t'(image_data)',\n\t(ibm,key,info,)=>[ibm.width,ibm.height,], //ambil width & height doang\n)\n\n\nlet tex = new Map()//texture\ntex.set(\n\t'(context)',\n\t()=>cx3d.getCurrentTexture(), //context\n)\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -329,7 +404,7 @@
 			]
 		},
 		{
-			"text": "\ncreate_gpu_object.set(\n'gpu_texture_view',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\tlet view = (await reso.get(data)).createView(descr)\n\treturn view\n},)\n\n\n\nlet texview = new Map()//texture view\ntexview.set(\n\t'(context)',\n\t()=>cx3d.getCurrentTexture().createView(cvd), //context\n)\n",
+			"text": "\ncreate_gpu_object.set(\n'gpu_texture_view',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\tlet info = {\n\t\ttype,\n\t\tdescriptor:descr,\n\t\tdata,\n\t\tparenturl,\n\t}\n\tdescr = structuredClone(descr)\n\t\n\tif(\n\t\t!resizecanvarr[1].has(key) &&\n\t\tresizecanvarr[0].has(data)\n\t){\n\t\tresizecanvarr[1].set(key,info,)\n\t}\n\t\n\tlet texini = await reso.get(data)\n\tlet view = texini.createView(descr)\n\treturn view\n},)\n\n\n\nlet texview = new Map()//texture view\ntexview.set(\n\t'(context)',\n\t()=>cx3d.getCurrentTexture().createView(cvd), //context\n)\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -337,8 +412,8 @@
 			"color": [
 				{
 					"r": "255",
-					"g": "155",
-					"b": "0",
+					"g": "122",
+					"b": "122",
 					"frame": "0"
 				}
 			]
@@ -434,7 +509,7 @@
 			]
 		},
 		{
-			"text": "\ncreate_gpu_object.set(\n'gpu_buffer_binding',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\t\n\tdescr.buffer = \n/*========\n\tbbf.has(descr.buffer)\n\t?bbf.get(descr.buffer)\n\t:await reso.get(descr.buffer)\n--------*/\n\tawait reso.get(descr.buffer)\n\t\n\treturn descr\n},)\n\n\n\nlet bbf //buffer binding format\n",
+			"text": "\ncreate_gpu_object.set(\n'gpu_buffer_binding',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\t\n\tdescr.buffer = await reso.get(descr.buffer)\n\t\n\treturn descr\n},)\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -464,7 +539,7 @@
 			]
 		},
 		{
-			"text": "\ncreate_gpu_object.set(\n'gpu_bind_group',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\tfor(let entry of descr.entries){\n\t\tentry.resource = await reso.get(entry.resource)\n\t}\n\tlet aaaa\n\tdescr.layout = await reso.get(aaaa = descr.layout)\n\t\n\treturn dv.createBindGroup(descr)\n},)\n",
+			"text": "\ncreate_gpu_object.set(\n'gpu_bind_group',async ({\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n},key,)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\n\tlet info = {\n\t\ttype,\n\t\tdescriptor:descr,\n\t\tdata,\n\t\tparenturl,\n\t}\n\tdescr = structuredClone(descr)\n\t\n\tfor(let entry of descr.entries){\n//resizecanvarr\n\t\tif(\n\t\t\t!resizecanvarr[2].has(key) &&\n\t\t\tresizecanvarr[1].has(entry.resource)\n\t\t){\n\t\t\tresizecanvarr[2].set(key,info,)\n\t\t}\n//-+-+-+-+-+-+-+-\n\t\tentry.resource = await reso.get(entry.resource)\n\t}\n\tdescr.layout = await reso.get(descr.layout)\n\t\n\treturn dv.createBindGroup(descr)\n},)\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -494,16 +569,16 @@
 			]
 		},
 		{
-			"text": "\ncreate_gpu_object.set(\n'gpu_begin_render_pass',async (\n/*========\n{\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n}\n--------*/\n\tencometh,\n\tkey,\n)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\t\t\n\t\t\tfor(let ca of encometh.descriptor.colorAttachments){\n\t\t\t\tca.view = texview.has(ca.view)\n\t\t\t\t?texview.get(ca.view)()\n\t\t\t\t:await reso.get(ca.view)\n\t\t\t}\n\t\t\tlet dsa = encometh.descriptor.depthStencilAttachment\n\t\t\tdsa.view = await reso.get(dsa.view)\n\t\n\treturn encometh\n},)\n",
+			"text": "\ncreate_gpu_object.set(\n'gpu_begin_render_pass',async (\n/*========\n{\n\ttype,\n\tdescriptor:descr,\n\tdata,\n\tparenturl,\n}\n--------*/\n\tencometh,\n\tkey,\n)=>{\n\t//dulu resosrclink, sekarang parenturl\n\t\n\tawait 0 //lih(type)\n\tawait 0 //lih(type)\n\t\t\t\n\tlet info = {\n\t\ttype:encometh.type,\n\t\tdescriptor:structuredClone(encometh.descriptor),\n\t\tdata:encometh.data,\n\t\tparenturl:encometh.parenturl,\n\t}\n\t\n\tfor(let ca of info.descriptor.colorAttachments){\n\t\tlet strcaview = ca.view\n\t\tca.view = texview.has(ca.view)\n\t\t?texview.get(ca.view)()\n\t\t:await reso.get(ca.view)\n//resizecanvarr\n\t\tif(\n\t\t\t!resizecanvarr[3].has(key) &&\n\t\t\tresizecanvarr[1].has(strcaview)\n\t\t){\n\t\t\tresizecanvarr[3].set(key,encometh,)\n\t\t}\n//-+-+-+-+-+-+-+-\n\t}\n\tlet dsa = info.descriptor.depthStencilAttachment\n\tlet strdsaview = dsa.view\n\tdsa.view = await reso.get(dsa.view)\n//resizecanvarr\n\tif(\n\t\t!resizecanvarr[3].has(key) &&\n\t\tresizecanvarr[1].has(strdsaview)\n\t){\n\t\tresizecanvarr[3].set(key,encometh,)\n\t}\n//-+-+-+-+-+-+-+-\n\t\n\t//lih(`${key} ${texini.width} ${texini.height}`)\n\treturn info\n},)\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
 			"running": false,
 			"color": [
 				{
-					"r": "0",
-					"g": "0",
-					"b": "255",
+					"r": "155",
+					"g": "222",
+					"b": "188",
 					"frame": "0"
 				}
 			]
@@ -543,7 +618,7 @@
 		{
 			"text": "\nlet main_is_called = false\nexport let main = async (\n\tcanv3d_param,\n\tcx3d_param,\n\treslinks,\n\twasmlinks,\n)=>{\n\tif(main_is_called){\n\t\treturn 'Already called'\n\t}\n\tmain_is_called = true\n\t\n",
 			"visible": true,
-			"time": "11892348.394593613",
+			"time": "15247527.856998516",
 			"speed": "7.621621621621619",
 			"running": true,
 			"color": [
@@ -594,7 +669,7 @@
 			]
 		},
 		{
-			"text": "\nresosrc = await resosrc\ndv = await dv\n\ncx3d.configure({ //context\n\tdevice:dv,\n\tformat: presentationFormat,\n\tusage:\n\t\tGPUTextureUsage.RENDER_ATTACHMENT |\n\t\tGPUTextureUsage.COPY_DST\n\t,\n});\n\n//lih(resosrc)\nfor(let key in resosrc){\n\tlet info = resosrc[key]\n\treso.set(key,\n\t\tcreate_gpu_object\n\t\t.get(info.type)\n\t\t?.(info,key,),\n\t)\n}\nlih(reso)\n",
+			"text": "\nresosrc = await resosrc\ndv = await dv\n\ncx3d.configure({ //context\n\tdevice:dv,\n\tformat: presentationFormat,\n\tusage:\n\t\tGPUTextureUsage.RENDER_ATTACHMENT |\n\t\tGPUTextureUsage.COPY_DST\n\t,\n});\n\n//lih(resosrc)\nfor(let key in resosrc){\n\tlet info = resosrc[key]\n\treso.set(key,\n\t\tcreate_gpu_object\n\t\t.get(info.type)\n\t\t?.(info,key,),\n\t)\n}\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -609,7 +684,7 @@
 			]
 		},
 		{
-			"text": "\nlet memorydict = {};\nlet tabledict = {};\nfor (let [k,v,] of reso) {\n\tv = await v\n\tif (v instanceof WebAssembly.Memory) memorydict[k] = v\n\telse if (v instanceof WebAssembly.Table) tabledict[k] = v\n}\n\ntunggureso.run({\n\tmemorydict,\n\ttabledict,\n})\nwasmsrc = await Promise.all(await wasmsrc)\nlih(wasmsrc)\nfor(let wasm of wasmsrc){\n\twasm.instance.exports.init?.()\n}\n",
+			"text": "\nlet memorydict = {};\nlet tabledict = {};\nlet globaldict = {};\n\nfor (let [k,v,] of reso) {\n\tv = await v\n\tif (v instanceof WebAssembly.Memory) memorydict[k] = v\n\telse if (v instanceof WebAssembly.Table) tabledict[k] = v\n\telse if (v instanceof WebAssembly.Global) globaldict[k] = v\n}\n\ntunggureso.run({\n\tmemorydict,\n\ttabledict,\n\tglobaldict,\n})\nwasmsrc = await Promise.all(await wasmsrc)\n",
 			"visible": true,
 			"time": "0",
 			"speed": "1",
@@ -709,9 +784,9 @@
 	],
 	[
 		{
-			"text": "\n\treturn pl4_4 = {\n/*========\n\t\tenv_audio:{\n\t\t\tplay:()=>suara.play(),\n\t\t\tpause:()=>suara.pause(),\n\t\t\tsetTime:t=>suara.setCurTime(t),\n\t\t\tgetTime:()=>suara.getCurTime(),\n\t\t\tsetSpeed:s=>suara.setspeed(s),\n\t\t\tgetSpeed:()=>suara.getspeed(),\n\t\t},\n--------*/\n\t\t//draw,\n\t\twasmsrc,\n\t\t//wasm_memories:memorydict,\n\t}\n}\n",
+			"text": "\n\treturn pl5 = {\n\t\tresosrc:reso,\n\t\twasmsrc,\n\t}\n}\n",
 			"visible": true,
-			"time": "1561161.3030291572",
+			"time": "2001379.884961762",
 			"speed": "1",
 			"running": true,
 			"color": [
