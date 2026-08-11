@@ -227,7 +227,7 @@ let wasm_ = async ( //
 
 
 //audio sekali play
-let wasm_fxauplay = async straucon=>{
+let wasm_fxauplay = async straucon=>{ //nama variable blum [diedit kayak _aucon]
 	let aucon = await reso.get(straucon)
 	let out = []
 	for(let con of aucon){
@@ -252,7 +252,7 @@ let wasm_fxauplay = async straucon=>{
 		const gainL = aucx.createGain();
 		const gainR = aucx.createGain();
 		gain_vol.gain.value = vol
-		//source.connect(gain_vol).connect(aucx.destination)
+		
 		source.connect(gain_vol)
 		gain_vol.connect(gainL).connect(LRmerger, 0, 0,)
 		gain_vol.connect(gainR).connect(LRmerger, 0, 1,)
@@ -264,8 +264,8 @@ let wasm_fxauplay = async straucon=>{
 			gainR,
 		})
 		
-		let curtime = aucx.currentTime
-		let whencx = curtime +when
+		let timecx = aucx.currentTime
+		let whencx = timecx +when
 		
 		source.loopStart = buftrimstart
 		source.loopEnd = buftrimend
@@ -382,7 +382,7 @@ let resizecanvarr = [ //canvas size updates texture, texview, bind
 
 /*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 sampe sini:
-	vertex_struct
+	aucon endglo
 
 
 
@@ -526,17 +526,17 @@ let strnewline = /\r\n|\r|\n/
 let _aucon = class {
 	#speed
 	constructor() { //audioData
-		let curtime = aucx.currentTime
+		let timecx = aucx.currentTime
 		this.audioContext = aucx;
 		this.audioData = []; //audioData;
 		this.sources = [];
 		this.gainpanNodes = [];
 		this.isPlaying = false;
 		this.#speed = 1;
-		this.startTime = curtime;// global
-		this.curtime = 0;// global, ga realtime
-		this.lastseek = 0;// local
-		this.stopTime = curtime;// global
+		this.startTime = timecx;// global
+		this.timeglo = 0;// global, ga realtime
+		this.lasttimeglo = 0;// local
+		this.stopTime = timecx;// global
 		
 		
 	}
@@ -554,35 +554,36 @@ let _aucon = class {
 		return source;
 	}
 
-	start_at(seek,newspeed,) {
+	start_at(timeglo,newspeed,) {
 		if (this.isPlaying) return;
 		this.isPlaying = true;
 		
-		let curtime = this.audioContext.currentTime
+		let timecx = this.audioContext.currentTime
 		
 		this.audioData.forEach(({
 			
-			//src:bufsrc,
 			buf:bufsrc,
-			start:when,
-			bufduration,
+			start:startglo,
+			end:endglo,
 			volume,
 			
 			buftrimstart,
-			buftrimend, // < 0, bufsrc.duration
+			buftrimend,
 			bufscale,
 			
 			//x,y,z,
 			
 		},i,) => {
-			when *= 1
+			startglo *= 1
 			volume *= 1
 			
 			buftrimstart *= 1
 			buftrimend = (buftrimend === 'src') ?bufsrc.duration :+buftrimend
 			
-			bufduration = (bufduration === 'trimmed') ?(buftrimend-buftrimstart) :bufduration //buffer time
-			bufduration = (bufduration === 'endless') ?'endless' :+bufduration //buffer time
+			//bufduration = (bufduration === 'trimmed') ?(buftrimend-buftrimstart) :bufduration //buffer time
+			//bufduration = (bufduration === 'endless') ?'endless' :+bufduration //buffer time
+			endglo = (endglo === 'trimmed') ?((buftrimend-buftrimstart)*bufscale+startglo) :endglo //sampe sini
+			endglo = (endglo === 'endless') ?'endless' :endglo
 			
 			bufscale *= 1
 			/*
@@ -596,26 +597,21 @@ let _aucon = class {
 				volume,
 				newspeed/bufscale,
 				this.gainpanNodes[i],
-				
-				//x,y,z,
 			)
 			
-			let whenglo = when
-			let whencx = Math.max(0,curtime +(whenglo-seek)/newspeed,) //ASLI
-			//let whencx = curtime +(whenglo-seek)/newspeed //COBA
+			let startcx = Math.max(0,timecx+(startglo-timeglo)/newspeed,)
 			
 			source.loopStart = buftrimstart
-			source.loopEnd = buftrimend //(buftrimend < 0)?bufsrc.duration:buftrimend
-			let durcx = bufduration //(bufduration < 0)?bufsrc.duration:bufduration
+			source.loopEnd = buftrimend
 			
-			let offsetlok = Math.max(0,-whenglo+seek,)/bufscale
+			let offsetlok = Math.max(0,-startglo+timeglo,)/bufscale
 			offsetlok = offsetlok % (source.loopEnd-source.loopStart)
 			offsetlok += buftrimstart
 			
-			source.start(whencx,offsetlok,) //parameter start() duration tidak jelas, ganti pake stop()
-			if(bufduration !== 'endless'){
-				durcx *= 1/newspeed*bufscale
-				source.stop(whencx+durcx)
+			source.start(startcx,offsetlok,) //parameter start() duration tidak jelas, ganti pake stop()
+			if(endglo !== 'endless'){
+				let endcx = timecx+(endglo-timeglo)/newspeed
+				source.stop(Math.max(0,endcx,))
 			}
 			
 			
@@ -627,14 +623,14 @@ let _aucon = class {
 		});
 		//akhir
 		this.#speed = newspeed
-		this.startTime = curtime
-		this.lastseek = seek
+		this.startTime = timecx
+		this.lasttimeglo = timeglo
 
 	}
 
 	destroy() {
 		if (!this.isPlaying) return
-		this.curtime = this.getCurTime()
+		this.timeglo = this.getCurTime()
 		this.isPlaying = false;
 		this.stopTime = this.audioContext.currentTime
 		this.sources.forEach((source) => {
@@ -671,12 +667,11 @@ let _aucon = class {
 		}
 		if(this.isPlaying){
 			this.destroy()
-			this.start_at(this.curtime,this.#speed,)
+			this.start_at(this.timeglo,this.#speed,)
 		}
 	}
 	play(){
-		//"this.curtime" beda dengan "curtime"
-		this.start_at(this.curtime,this.#speed,)
+		this.start_at(this.timeglo,this.#speed,)
 	}
 	pause(){
 		this.destroy()
@@ -687,14 +682,14 @@ let _aucon = class {
 			this.destroy()
 			this.start_at(time,this.#speed,)
 		}else{
-			this.curtime = time
+			this.timeglo = time
 		}
 	}
 	setspeed(speed){
 		speed = Math.max(0,speed,)
 		if(this.isPlaying){
 			this.destroy()
-			this.start_at(this.curtime,speed,)
+			this.start_at(this.timeglo,speed,)
 		}else{
 			this.#speed = speed
 		}
@@ -706,13 +701,13 @@ let _aucon = class {
 	}
 	
 	getCurTime() {//realtime
-		let curtime = this.audioContext.currentTime
+		let timecx = this.audioContext.currentTime
 		return this.isPlaying
 		? (
-			(this.isPlaying ? curtime : this.stopTime)
+			(this.isPlaying ? timecx : this.stopTime)
 			- this.startTime
-		)*this.#speed + this.lastseek
-		: this.curtime
+		)*this.#speed + this.lasttimeglo
+		: this.timeglo
 	}
 	getspeed(){
 		return this.#speed
@@ -846,7 +841,7 @@ create_gpu_object.set(
 	let memcurlen = offset //memory current length
 	for(let i = 0;i < len;i++){
 		let inst = {}
-		for(let prop in lay){ //sampe sini
+		for(let prop in lay){
 			let {
 				len:flen,
 				type:ftype,
@@ -924,7 +919,6 @@ create_gpu_object.set(
 	await 0 //lih(type)
 	await 0 //lih(type)
 	
-	//sampe sini
 	let arrbuf = await fetch(new URL(data,parenturl,))
 	arrbuf = await arrbuf.arrayBuffer()
 	let out = {buffer:arrbuf,}
